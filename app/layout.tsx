@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "English Tenses Master",
   description: "Learn English tenses through contextual sentences and visual examples",
+    generator: 'v0.dev'
 }
 
 export default function RootLayout({
