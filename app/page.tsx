@@ -1405,7 +1405,7 @@ const concatenateSentence = (sentenceObj: any): React.ReactElement => {
     
     return (
       <span>
-        {SUBJECT} {AUX_VERB && <span className="font-bold">{AUX_VERB}</span>} {VERB_IN_CORRECT_FORM} {ADVERB_OF_TIME}
+        {SUBJECT} {AUX_VERB && <span className="font-bold">{AUX_VERB}</span>} <span className="font-bold text-base">{VERB_IN_CORRECT_FORM}</span> {ADVERB_OF_TIME}
       </span>
     );
   }
@@ -1868,21 +1868,21 @@ export default function EnglishTensesApp() {
                       <div className="flex flex-col items-center">
                         <span className="text-lg font-semibold">Simple</span>
                       </div>
-                      <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 text-center flex items-center justify-center min-h-[80px]">
+                      <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 text-left flex items-center min-h-[80px]">
                         <div>
                           <p className="text-sm leading-relaxed">
                             {concatenateSentence(getCurrentSentences()[4])}
                           </p>
                         </div>
                       </div>
-                      <div className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800 text-center flex items-center justify-center min-h-[80px]">
+                      <div className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800 text-left flex items-center min-h-[80px]">
                         <div>
                           <p className="text-sm leading-relaxed">
                             {concatenateSentence(getCurrentSentences()[0])}
                           </p>
                         </div>
                       </div>
-                      <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg border border-emerald-200 dark:border-emerald-800 text-center flex items-center justify-center min-h-[80px]">
+                      <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg border border-emerald-200 dark:border-emerald-800 text-left flex items-center min-h-[80px]">
                         <div>
                           <p className="text-sm leading-relaxed">
                             {concatenateSentence(getCurrentSentences()[8])}
@@ -1900,21 +1900,21 @@ export default function EnglishTensesApp() {
                       <div className="flex flex-col items-center">
                         <span className="text-lg font-semibold">Continuous</span>
                       </div>
-                      <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 text-center flex items-center justify-center min-h-[80px]">
+                      <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 text-left flex items-center min-h-[80px]">
                         <div>
                           <p className="text-sm leading-relaxed">
                             {concatenateSentence(getCurrentSentences()[5])}
                           </p>
                         </div>
                       </div>
-                      <div className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800 text-center flex items-center justify-center min-h-[80px]">
+                      <div className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800 text-left flex items-center min-h-[80px]">
                         <div>
                           <p className="text-sm leading-relaxed">
                             {concatenateSentence(getCurrentSentences()[1])}
                           </p>
                         </div>
                       </div>
-                      <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg border border-emerald-200 dark:border-emerald-800 text-center flex items-center justify-center min-h-[80px]">
+                      <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg border border-emerald-200 dark:border-emerald-800 text-left flex items-center min-h-[80px]">
                         <div>
                           <p className="text-sm leading-relaxed">
                             {concatenateSentence(getCurrentSentences()[9])}
@@ -1932,21 +1932,21 @@ export default function EnglishTensesApp() {
                       <div className="flex flex-col items-center">
                         <span className="text-lg font-semibold">Perfect</span>
                       </div>
-                      <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 text-center flex items-center justify-center min-h-[80px]">
+                      <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 text-left min-h-[80px]">
                         <div>
                           <p className="text-sm leading-relaxed">
                             {concatenateSentence(getCurrentSentences()[6])}
                           </p>
                         </div>
                       </div>
-                      <div className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800 text-center flex items-center justify-center min-h-[80px]">
+                      <div className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800 text-left min-h-[80px]">
                         <div>
                           <p className="text-sm leading-relaxed">
                             {concatenateSentence(getCurrentSentences()[2])}
                           </p>
                         </div>
                       </div>
-                      <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg border border-emerald-200 dark:border-emerald-800 text-center flex items-center justify-center min-h-[80px]">
+                      <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg border border-emerald-200 dark:border-emerald-800 text-left min-h-[80px]">
                         <div>
                           <p className="text-sm leading-relaxed">
                             {concatenateSentence(getCurrentSentences()[10])}
@@ -1964,21 +1964,21 @@ export default function EnglishTensesApp() {
                       <div className="flex flex-col items-center">
                         <span className="text-lg font-semibold">Perfect Continuous</span>
                       </div>
-                      <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 text-center flex items-center justify-center min-h-[80px]">
+                      <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 text-left min-h-[80px]">
                         <div>
                           <p className="text-sm leading-relaxed">
                             {concatenateSentence(getCurrentSentences()[7])}
                           </p>
                         </div>
                       </div>
-                      <div className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800 text-center flex items-center justify-center min-h-[80px]">
+                      <div className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800 text-left min-h-[80px]">
                         <div>
                           <p className="text-sm leading-relaxed">
                             {concatenateSentence(getCurrentSentences()[3])}
                           </p>
                         </div>
                       </div>
-                      <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg border border-emerald-200 dark:border-emerald-800 text-center flex items-center justify-center min-h-[80px]">
+                      <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg border border-emerald-200 dark:border-emerald-800 text-left flex items-center justify-center min-h-[80px]">
                         <div>
                           <p className="text-sm leading-relaxed">
                             {concatenateSentence(getCurrentSentences()[11])}
