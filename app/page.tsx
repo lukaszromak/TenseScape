@@ -1,14 +1,14 @@
 "use client"
 
+import React from "react"
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Progress } from "@/components/ui/progress"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { ArrowLeft, BookOpen, Clock, ImageIcon, Star, Trophy, Target, Palette } from "lucide-react"
+import { ArrowLeft, BookOpen, Clock, ImageIcon, Star, Trophy, Target, Palette, Zap } from "lucide-react"
 import Image from "next/image"
 
 // Utility function to get higher resolution Unsplash images
@@ -481,857 +481,892 @@ const tenses = [
 const sentences = {
   plane: {
     fly: [
-      "The plane flies at 30,000 feet every day.",
-      "The plane is flying through the clouds right now.",
-      "The plane has flown for two hours already.",
-      "The plane has been flying since morning without stopping.",
-      "The plane flew yesterday from New York to London.",
-      "The plane was flying when the storm suddenly appeared.",
-      "The plane had flown before the weather conditions worsened.",
-      "The plane had been flying for hours before it finally landed.",
-      "The plane will fly tomorrow at 8 AM sharp.",
-      "The plane will be flying at this exact time tomorrow.",
-      "The plane will have flown 500 miles by the time we arrive.",
-      "The plane will have been flying for 8 hours by arrival time.",
+      { SUBJECT: "The plane", AUX_VERB: "", VERB_IN_CORRECT_FORM: "flies", ADVERB_OF_TIME: "every day" },
+      { SUBJECT: "The plane", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "flying", ADVERB_OF_TIME: "right now" },
+      { SUBJECT: "The plane", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "flown", ADVERB_OF_TIME: "already" },
+      { SUBJECT: "The plane", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "flying", ADVERB_OF_TIME: "since morning" },
+      { SUBJECT: "The plane", AUX_VERB: "", VERB_IN_CORRECT_FORM: "flew", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The plane", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "flying", ADVERB_OF_TIME: "suddenly" },
+      { SUBJECT: "The plane", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "flown", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The plane", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "flying", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "The plane", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "fly", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "The plane", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "flying", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "The plane", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "flown", ADVERB_OF_TIME: "by arrival" },
+      { SUBJECT: "The plane", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "flying", ADVERB_OF_TIME: "by arrival" },
     ],
     land: [
-      "The plane lands safely at the airport every evening.",
-      "The plane is landing on runway 24 right now.",
-      "The plane has landed successfully after a long journey.",
-      "The plane has been landing smoothly since the pilot took control.",
-      "The plane landed during the thunderstorm last night.",
-      "The plane was landing when the emergency vehicles arrived.",
-      "The plane had landed before the passengers realized the delay.",
-      "The plane had been landing procedures for 20 minutes before touchdown.",
-      "The plane will land at 3 PM according to the schedule.",
-      "The plane will be landing while we wait in the terminal.",
-      "The plane will have landed by the time you reach the airport.",
-      "The plane will have been landing for several minutes before we see it.",
+      { SUBJECT: "The plane", AUX_VERB: "", VERB_IN_CORRECT_FORM: "lands", ADVERB_OF_TIME: "every evening" },
+      { SUBJECT: "The plane", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "landing", ADVERB_OF_TIME: "right now" },
+      { SUBJECT: "The plane", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "landed", ADVERB_OF_TIME: "successfully" },
+      { SUBJECT: "The plane", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "landing", ADVERB_OF_TIME: "smoothly" },
+      { SUBJECT: "The plane", AUX_VERB: "", VERB_IN_CORRECT_FORM: "landed", ADVERB_OF_TIME: "last night" },
+      { SUBJECT: "The plane", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "landing", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The plane", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "landed", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The plane", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "landing", ADVERB_OF_TIME: "for 20 minutes" },
+      { SUBJECT: "The plane", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "land", ADVERB_OF_TIME: "at 3 PM" },
+      { SUBJECT: "The plane", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "landing", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "The plane", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "landed", ADVERB_OF_TIME: "by then" },
+      { SUBJECT: "The plane", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "landing", ADVERB_OF_TIME: "for minutes" },
     ],
     takeoff: [
-      "The plane takes off from this runway every morning.",
-      "The plane is taking off despite the foggy weather.",
-      "The plane has taken off successfully from the busy airport.",
-      "The plane has been taking off smoothly since the new pilot arrived.",
-      "The plane took off exactly on time yesterday.",
-      "The plane was taking off when the bird strike occurred.",
-      "The plane had taken off before the storm warning was issued.",
-      "The plane had been taking off procedures for 10 minutes before departure.",
-      "The plane will take off as soon as the weather clears.",
-      "The plane will be taking off while passengers board the next flight.",
-      "The plane will have taken off by the time you arrive at the gate.",
-      "The plane will have been taking off for several minutes before reaching cruising altitude.",
+      { SUBJECT: "The plane", AUX_VERB: "", VERB_IN_CORRECT_FORM: "takes off", ADVERB_OF_TIME: "every morning" },
+      { SUBJECT: "The plane", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "taking off", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "The plane", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "taken off", ADVERB_OF_TIME: "successfully" },
+      { SUBJECT: "The plane", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "taking off", ADVERB_OF_TIME: "smoothly" },
+      { SUBJECT: "The plane", AUX_VERB: "", VERB_IN_CORRECT_FORM: "took off", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The plane", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "taking off", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The plane", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "taken off", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The plane", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "taking off", ADVERB_OF_TIME: "for 10 minutes" },
+      { SUBJECT: "The plane", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "take off", ADVERB_OF_TIME: "soon" },
+      { SUBJECT: "The plane", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "taking off", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The plane", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "taken off", ADVERB_OF_TIME: "by then" },
+      { SUBJECT: "The plane", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "taking off", ADVERB_OF_TIME: "for minutes" },
     ],
     board: [
-      "Passengers board the plane through gate 15 every day.",
-      "Passengers are boarding the plane in groups right now.",
-      "All passengers have boarded the plane successfully.",
-      "Passengers have been boarding the plane since 2 PM.",
-      "The family boarded the plane first yesterday.",
-      "Passengers were boarding the plane when the delay was announced.",
-      "All passengers had boarded the plane before the doors closed.",
-      "Passengers had been boarding the plane for 30 minutes before takeoff.",
-      "Passengers will board the plane starting at 4 PM.",
-      "Passengers will be boarding the plane while crew performs safety checks.",
-      "All passengers will have boarded the plane by departure time.",
-      "Passengers will have been boarding the plane for an hour before takeoff.",
+      { SUBJECT: "Passengers", AUX_VERB: "", VERB_IN_CORRECT_FORM: "board", ADVERB_OF_TIME: "daily" },
+      { SUBJECT: "Passengers", AUX_VERB: "are", VERB_IN_CORRECT_FORM: "boarding", ADVERB_OF_TIME: "right now" },
+      { SUBJECT: "All passengers", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "boarded", ADVERB_OF_TIME: "successfully" },
+      { SUBJECT: "Passengers", AUX_VERB: "have been", VERB_IN_CORRECT_FORM: "boarding", ADVERB_OF_TIME: "since 2 PM" },
+      { SUBJECT: "The family", AUX_VERB: "", VERB_IN_CORRECT_FORM: "boarded", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "Passengers", AUX_VERB: "were", VERB_IN_CORRECT_FORM: "boarding", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "All passengers", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "boarded", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "Passengers", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "boarding", ADVERB_OF_TIME: "for 30 minutes" },
+      { SUBJECT: "Passengers", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "board", ADVERB_OF_TIME: "at 4 PM" },
+      { SUBJECT: "Passengers", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "boarding", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "All passengers", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "boarded", ADVERB_OF_TIME: "by departure" },
+      { SUBJECT: "Passengers", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "boarding", ADVERB_OF_TIME: "for an hour" },
     ],
     travel: [
-      "People travel by plane to distant countries regularly.",
-      "The businessman is traveling to Tokyo for a conference.",
-      "She has traveled to over 50 countries by plane.",
-      "They have been traveling by plane since their honeymoon began.",
-      "The family traveled to Europe by plane last summer.",
-      "He was traveling to Australia when the pandemic started.",
-      "She had traveled extensively before settling down.",
-      "They had been traveling for 12 hours before reaching their destination.",
-      "We will travel to Asia by plane next month.",
-      "They will be traveling while we stay home for the holidays.",
-      "She will have traveled to all continents by her 40th birthday.",
-      "They will have been traveling for 20 hours before landing in Sydney.",
+      { SUBJECT: "People", AUX_VERB: "", VERB_IN_CORRECT_FORM: "travel", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "The businessman", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "traveling", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "She", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "traveled", ADVERB_OF_TIME: "extensively" },
+      { SUBJECT: "They", AUX_VERB: "have been", VERB_IN_CORRECT_FORM: "traveling", ADVERB_OF_TIME: "since" },
+      { SUBJECT: "The family", AUX_VERB: "", VERB_IN_CORRECT_FORM: "traveled", ADVERB_OF_TIME: "last summer" },
+      { SUBJECT: "He", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "traveling", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "She", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "traveled", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "They", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "traveling", ADVERB_OF_TIME: "for 12 hours" },
+      { SUBJECT: "We", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "travel", ADVERB_OF_TIME: "next month" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "traveling", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "She", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "traveled", ADVERB_OF_TIME: "by birthday" },
+      { SUBJECT: "They", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "traveling", ADVERB_OF_TIME: "for 20 hours" },
     ],
     pilot: [
-      "He pilots commercial aircraft for a major airline.",
-      "She is piloting the plane through turbulent weather.",
-      "The captain has piloted this route many times before.",
-      "He has been piloting planes since graduating from flight school.",
-      "She piloted the emergency landing perfectly yesterday.",
-      "The co-pilot was piloting when the engine failed.",
-      "He had piloted military jets before joining the airline.",
-      "She had been piloting for 2 hours before requesting assistance.",
-      "The new pilot will pilot his first commercial flight tomorrow.",
-      "She will be piloting while the captain rests.",
-      "He will have piloted over 1000 flights by retirement.",
-      "She will have been piloting for 8 hours before the shift ends.",
+      { SUBJECT: "He", AUX_VERB: "", VERB_IN_CORRECT_FORM: "pilots", ADVERB_OF_TIME: "daily" },
+      { SUBJECT: "She", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "piloting", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "The captain", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "piloted", ADVERB_OF_TIME: "many times" },
+      { SUBJECT: "He", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "piloting", ADVERB_OF_TIME: "since" },
+      { SUBJECT: "She", AUX_VERB: "", VERB_IN_CORRECT_FORM: "piloted", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The co-pilot", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "piloting", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "He", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "piloted", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "She", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "piloting", ADVERB_OF_TIME: "for 2 hours" },
+      { SUBJECT: "The new pilot", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "pilot", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "She", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "piloting", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "He", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "piloted", ADVERB_OF_TIME: "by retirement" },
+      { SUBJECT: "She", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "piloting", ADVERB_OF_TIME: "for 8 hours" },
     ],
     check: [
-      "The crew checks the plane before every flight.",
-      "Mechanics are checking the engine systems right now.",
-      "The pilot has checked all instruments thoroughly.",
-      "The team has been checking the aircraft since dawn.",
-      "The inspector checked the plane's safety systems yesterday.",
-      "Engineers were checking the wings when they found the issue.",
-      "The crew had checked everything before passengers boarded.",
-      "They had been checking the plane for 2 hours before clearance.",
-      "The maintenance team will check the plane tonight.",
-      "Technicians will be checking systems while passengers wait.",
-      "The crew will have checked all systems by departure time.",
-      "They will have been checking the aircraft for hours before approval.",
+      { SUBJECT: "The crew", AUX_VERB: "", VERB_IN_CORRECT_FORM: "checks", ADVERB_OF_TIME: "every flight" },
+      { SUBJECT: "Mechanics", AUX_VERB: "are", VERB_IN_CORRECT_FORM: "checking", ADVERB_OF_TIME: "right now" },
+      { SUBJECT: "The pilot", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "checked", ADVERB_OF_TIME: "thoroughly" },
+      { SUBJECT: "The team", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "checking", ADVERB_OF_TIME: "since dawn" },
+      { SUBJECT: "The inspector", AUX_VERB: "", VERB_IN_CORRECT_FORM: "checked", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "Engineers", AUX_VERB: "were", VERB_IN_CORRECT_FORM: "checking", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The crew", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "checked", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "They", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "checking", ADVERB_OF_TIME: "for 2 hours" },
+      { SUBJECT: "The maintenance team", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "check", ADVERB_OF_TIME: "tonight" },
+      { SUBJECT: "Technicians", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "checking", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "The crew", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "checked", ADVERB_OF_TIME: "by departure" },
+      { SUBJECT: "They", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "checking", ADVERB_OF_TIME: "for hours" },
     ],
     wait: [
-      "Passengers wait in the terminal for boarding announcements.",
-      "The family is waiting at gate 12 for their flight.",
-      "We have waited for 3 hours due to the delay.",
-      "Travelers have been waiting since early morning.",
-      "They waited patiently during the weather delay yesterday.",
-      "Passengers were waiting when the flight was cancelled.",
-      "Everyone had waited for hours before the announcement came.",
-      "We had been waiting for 4 hours before boarding began.",
-      "Passengers will wait in the lounge until boarding starts.",
-      "They will be waiting while maintenance fixes the problem.",
-      "We will have waited for 6 hours by the time we board.",
-      "Passengers will have been waiting all day before departure.",
+      { SUBJECT: "Passengers", AUX_VERB: "", VERB_IN_CORRECT_FORM: "wait", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "The family", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "waiting", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "waited", ADVERB_OF_TIME: "for 3 hours" },
+      { SUBJECT: "Travelers", AUX_VERB: "have been", VERB_IN_CORRECT_FORM: "waiting", ADVERB_OF_TIME: "since morning" },
+      { SUBJECT: "They", AUX_VERB: "", VERB_IN_CORRECT_FORM: "waited", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "Passengers", AUX_VERB: "were", VERB_IN_CORRECT_FORM: "waiting", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "Everyone", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "waited", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "waiting", ADVERB_OF_TIME: "for 4 hours" },
+      { SUBJECT: "Passengers", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "wait", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "waiting", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "waited", ADVERB_OF_TIME: "for 6 hours" },
+      { SUBJECT: "Passengers", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "waiting", ADVERB_OF_TIME: "all day" },
     ],
     arrive: [
-      "International flights arrive at terminal 3 daily.",
-      "The plane is arriving 30 minutes behind schedule.",
-      "Flight 247 has arrived safely at its destination.",
-      "Planes have been arriving late since the storm began.",
-      "The delayed flight arrived at midnight yesterday.",
-      "The plane was arriving when the runway lights failed.",
-      "The aircraft had arrived before the ground crew was ready.",
-      "The flight had been arriving procedures for 20 minutes before landing.",
-      "The next flight will arrive at 6 PM sharp.",
-      "Several planes will be arriving during the busy evening hours.",
-      "All flights will have arrived by the end of the day.",
-      "The plane will have been arriving for several minutes before passengers disembark.",
+      { SUBJECT: "International flights", AUX_VERB: "", VERB_IN_CORRECT_FORM: "arrive", ADVERB_OF_TIME: "daily" },
+      { SUBJECT: "The plane", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "arriving", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "Flight 247", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "arrived", ADVERB_OF_TIME: "safely" },
+      { SUBJECT: "Planes", AUX_VERB: "have been", VERB_IN_CORRECT_FORM: "arriving", ADVERB_OF_TIME: "late" },
+      { SUBJECT: "The delayed flight", AUX_VERB: "", VERB_IN_CORRECT_FORM: "arrived", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The plane", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "arriving", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The aircraft", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "arrived", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The flight", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "arriving", ADVERB_OF_TIME: "for 20 minutes" },
+      { SUBJECT: "The next flight", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "arrive", ADVERB_OF_TIME: "at 6 PM" },
+      { SUBJECT: "Several planes", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "arriving", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "All flights", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "arrived", ADVERB_OF_TIME: "by evening" },
+      { SUBJECT: "The plane", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "arriving", ADVERB_OF_TIME: "for minutes" },
     ],
     depart: [
-      "Flights depart from this gate every two hours.",
-      "Flight 156 is departing from gate 8 right now.",
-      "The morning flight has departed on schedule.",
-      "Planes have been departing late since the fog rolled in.",
-      "The red-eye flight departed at 11 PM last night.",
-      "The plane was departing when the passenger ran to catch it.",
-      "The aircraft had departed before the connecting passengers arrived.",
-      "The flight had been departing procedures for 15 minutes before takeoff.",
-      "The evening flight will depart as planned.",
-      "Multiple flights will be departing during the peak hours.",
-      "All scheduled flights will have departed by midnight.",
-      "The plane will have been departing for several minutes before reaching altitude.",
+      { SUBJECT: "Flights", AUX_VERB: "", VERB_IN_CORRECT_FORM: "depart", ADVERB_OF_TIME: "every two hours" },
+      { SUBJECT: "Flight 156", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "departing", ADVERB_OF_TIME: "right now" },
+      { SUBJECT: "The morning flight", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "departed", ADVERB_OF_TIME: "on schedule" },
+      { SUBJECT: "Planes", AUX_VERB: "have been", VERB_IN_CORRECT_FORM: "departing", ADVERB_OF_TIME: "late" },
+      { SUBJECT: "The red-eye flight", AUX_VERB: "", VERB_IN_CORRECT_FORM: "departed", ADVERB_OF_TIME: "last night" },
+      { SUBJECT: "The plane", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "departing", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The aircraft", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "departed", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The flight", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "departing", ADVERB_OF_TIME: "for 15 minutes" },
+      { SUBJECT: "The evening flight", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "depart", ADVERB_OF_TIME: "as planned" },
+      { SUBJECT: "Multiple flights", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "departing", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "All scheduled flights", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "departed", ADVERB_OF_TIME: "by midnight" },
+      { SUBJECT: "The plane", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "departing", ADVERB_OF_TIME: "for minutes" },
     ],
   },
   house: {
     live: [
-      "I live in a beautiful house with my family.",
-      "I am living in a new neighborhood this year.",
-      "I have lived here for five wonderful years.",
-      "I have been living here since 2019 happily.",
-      "I lived in a small apartment before this house.",
-      "I was living alone when I first met my partner.",
-      "I had lived in three different cities before moving here.",
-      "I had been living paycheck to paycheck before getting this job.",
-      "I will live in this house for many years to come.",
-      "I will be living here next year as well.",
-      "I will have lived here for a full decade by 2030.",
-      "I will have been living here for 20 years by then.",
+      { SUBJECT: "I", AUX_VERB: "", VERB_IN_CORRECT_FORM: "live", ADVERB_OF_TIME: "daily" },
+      { SUBJECT: "I", AUX_VERB: "am", VERB_IN_CORRECT_FORM: "living", ADVERB_OF_TIME: "this year" },
+      { SUBJECT: "I", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "lived", ADVERB_OF_TIME: "for five years" },
+      { SUBJECT: "I", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "living", ADVERB_OF_TIME: "since 2019" },
+      { SUBJECT: "I", AUX_VERB: "", VERB_IN_CORRECT_FORM: "lived", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "I", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "living", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "I", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "lived", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "I", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "living", ADVERB_OF_TIME: "paycheck to paycheck" },
+      { SUBJECT: "I", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "live", ADVERB_OF_TIME: "for years" },
+      { SUBJECT: "I", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "living", ADVERB_OF_TIME: "next year" },
+      { SUBJECT: "I", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "lived", ADVERB_OF_TIME: "by 2030" },
+      { SUBJECT: "I", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "living", ADVERB_OF_TIME: "by then" },
     ],
     build: [
-      "Construction workers build houses in this neighborhood regularly.",
-      "The crew is building a new house next door.",
-      "They have built over 100 houses in this area.",
-      "The company has been building houses since 1985.",
-      "The family built their dream house last year.",
-      "Workers were building when the storm hit.",
-      "The contractor had built the foundation before winter arrived.",
-      "They had been building for 6 months before the inspection.",
-      "The developer will build 50 new houses here.",
-      "Construction crews will be building while residents sleep.",
-      "They will have built all houses by next summer.",
-      "The team will have been building for 2 years before completion.",
+      { SUBJECT: "Construction workers", AUX_VERB: "", VERB_IN_CORRECT_FORM: "build", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "The crew", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "building", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "They", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "built", ADVERB_OF_TIME: "over 100" },
+      { SUBJECT: "The company", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "building", ADVERB_OF_TIME: "since 1985" },
+      { SUBJECT: "The family", AUX_VERB: "", VERB_IN_CORRECT_FORM: "built", ADVERB_OF_TIME: "last year" },
+      { SUBJECT: "Workers", AUX_VERB: "were", VERB_IN_CORRECT_FORM: "building", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The contractor", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "built", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "They", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "building", ADVERB_OF_TIME: "for 6 months" },
+      { SUBJECT: "The developer", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "build", ADVERB_OF_TIME: "here" },
+      { SUBJECT: "Construction crews", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "building", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "They", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "built", ADVERB_OF_TIME: "by next summer" },
+      { SUBJECT: "The team", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "building", ADVERB_OF_TIME: "for 2 years" },
     ],
     clean: [
-      "She cleans the house every Saturday morning.",
-      "The maid is cleaning the living room right now.",
-      "I have cleaned every room in the house today.",
-      "The cleaning service has been cleaning since 8 AM.",
-      "They cleaned the entire house before the party yesterday.",
-      "She was cleaning when the guests arrived unexpectedly.",
-      "The family had cleaned thoroughly before the inspection.",
-      "We had been cleaning for 4 hours before taking a break.",
-      "The housekeepers will clean tomorrow while we're at work.",
-      "They will be cleaning while the family is on vacation.",
-      "We will have cleaned everything by the weekend.",
-      "The crew will have been cleaning for 8 hours before finishing.",
+      { SUBJECT: "She", AUX_VERB: "", VERB_IN_CORRECT_FORM: "cleans", ADVERB_OF_TIME: "every Saturday" },
+      { SUBJECT: "The maid", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "cleaning", ADVERB_OF_TIME: "right now" },
+      { SUBJECT: "I", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "cleaned", ADVERB_OF_TIME: "today" },
+      { SUBJECT: "The cleaning service", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "cleaning", ADVERB_OF_TIME: "since 8 AM" },
+      { SUBJECT: "They", AUX_VERB: "", VERB_IN_CORRECT_FORM: "cleaned", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "She", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "cleaning", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The family", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "cleaned", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "cleaning", ADVERB_OF_TIME: "for 4 hours" },
+      { SUBJECT: "The housekeepers", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "clean", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "cleaning", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "cleaned", ADVERB_OF_TIME: "by the weekend" },
+      { SUBJECT: "The crew", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "cleaning", ADVERB_OF_TIME: "for 8 hours" },
     ],
     paint: [
-      "Professional painters paint houses in this area frequently.",
-      "The crew is painting the exterior walls today.",
-      "We have painted three rooms this month.",
-      "The painters have been painting since early morning.",
-      "They painted the kitchen a bright yellow yesterday.",
-      "The artist was painting when inspiration struck.",
-      "The homeowners had painted before moving in.",
-      "We had been painting for hours before the color looked right.",
-      "The contractors will paint the house next week.",
-      "Workers will be painting while the weather stays dry.",
-      "They will have painted the entire house by Friday.",
-      "The team will have been painting for 3 days before completion.",
+      { subject: "Professional painters", modal: "are able to", verb: "paint" },
+      { subject: "Professional painters", modal: "can", verb: "paint" },
+      { subject: "Professional painters", modal: "could", verb: "paint" },
+      { subject: "Professional painters", modal: "should", verb: "paint" },
+      { subject: "Professional painters", modal: "would", verb: "paint" },
+      { subject: "Professional painters", modal: "have to", verb: "paint" },
+      { subject: "Professional painters", modal: "had to", verb: "paint" },
+      { subject: "Professional painters", modal: "will have to", verb: "paint" },
+      { subject: "Professional painters", modal: "must", verb: "paint" },
+      { subject: "Professional painters", modal: "might", verb: "paint" },
+      { subject: "Professional painters", modal: "may", verb: "paint" },
+      { subject: "Professional painters", modal: "should not", verb: "paint" },
+      { subject: "Professional painters", modal: "must not", verb: "paint" },
+      { subject: "Professional painters", modal: "would like to", verb: "paint" },
+      { subject: "Professional painters", modal: "are going to", verb: "paint" },
+      { subject: "Professional painters", modal: "need to", verb: "paint" },
+      { subject: "Professional painters", modal: "want to", verb: "paint" },
     ],
     repair: [
-      "The handyman repairs houses in the neighborhood regularly.",
-      "Contractors are repairing the roof damage right now.",
-      "We have repaired all the broken windows.",
-      "The maintenance team has been repairing since the storm.",
-      "The plumber repaired the leaking pipes yesterday.",
-      "Workers were repairing when they discovered more damage.",
-      "The electrician had repaired the wiring before the inspection.",
-      "They had been repairing for weeks before everything worked properly.",
-      "The contractor will repair the foundation next month.",
-      "Specialists will be repairing while the family stays elsewhere.",
-      "They will have repaired all damage by spring.",
-      "The crew will have been repairing for months before finishing.",
+      { subject: "The contractor", modal: "is able to", verb: "repair" },
+      { subject: "The contractor", modal: "can", verb: "repair" },
+      { subject: "The contractor", modal: "could", verb: "repair" },
+      { subject: "The contractor", modal: "should", verb: "repair" },
+      { subject: "The contractor", modal: "would", verb: "repair" },
+      { subject: "The contractor", modal: "has to", verb: "repair" },
+      { subject: "The contractor", modal: "had to", verb: "repair" },
+      { subject: "The contractor", modal: "will have to", verb: "repair" },
+      { subject: "The contractor", modal: "must", verb: "repair" },
+      { subject: "The contractor", modal: "might", verb: "repair" },
+      { subject: "The contractor", modal: "may", verb: "repair" },
+      { subject: "The contractor", modal: "should not", verb: "repair" },
+      { subject: "The contractor", modal: "must not", verb: "repair" },
+      { subject: "The contractor", modal: "would like to", verb: "repair" },
+      { subject: "The contractor", modal: "is going to", verb: "repair" },
+      { subject: "The contractor", modal: "needs to", verb: "repair" },
+      { subject: "The contractor", modal: "wants to", verb: "repair" },
     ],
     decorate: [
-      "Interior designers decorate houses for wealthy clients.",
-      "She is decorating the nursery for the new baby.",
-      "They have decorated their house for the holidays.",
-      "The family has been decorating since Thanksgiving.",
-      "We decorated the living room with new furniture yesterday.",
-      "She was decorating when she ran out of supplies.",
-      "The couple had decorated before hosting the dinner party.",
-      "They had been decorating for days before the guests arrived.",
-      "The designer will decorate the master bedroom tomorrow.",
-      "They will be decorating while shopping for new accessories.",
-      "We will have decorated every room by Christmas.",
-      "The team will have been decorating for weeks before the reveal.",
+      { subject: "The interior designer", modal: "is able to", verb: "decorate" },
+      { subject: "The interior designer", modal: "can", verb: "decorate" },
+      { subject: "The interior designer", modal: "could", verb: "decorate" },
+      { subject: "The interior designer", modal: "should", verb: "decorate" },
+      { subject: "The interior designer", modal: "would", verb: "decorate" },
+      { subject: "The interior designer", modal: "has to", verb: "decorate" },
+      { subject: "The interior designer", modal: "had to", verb: "decorate" },
+      { subject: "The interior designer", modal: "will have to", verb: "decorate" },
+      { subject: "The interior designer", modal: "must", verb: "decorate" },
+      { subject: "The interior designer", modal: "might", verb: "decorate" },
+      { subject: "The interior designer", modal: "may", verb: "decorate" },
+      { subject: "The interior designer", modal: "should not", verb: "decorate" },
+      { subject: "The interior designer", modal: "must not", verb: "decorate" },
+      { subject: "The interior designer", modal: "would like to", verb: "decorate" },
+      { subject: "The interior designer", modal: "is going to", verb: "decorate" },
+      { subject: "The interior designer", modal: "needs to", verb: "decorate" },
+      { subject: "The interior designer", modal: "wants to", verb: "decorate" },
     ],
     move: [
-      "Families move to new houses every summer.",
-      "The neighbors are moving to California next week.",
-      "We have moved three times in five years.",
-      "They have been moving gradually since last month.",
-      "The young couple moved into their first house yesterday.",
-      "The family was moving when the truck broke down.",
-      "They had moved all furniture before the lease expired.",
-      "We had been moving boxes for hours before hiring help.",
-      "The tenants will move out at the end of the month.",
-      "They will be moving while we renovate their old place.",
-      "Everyone will have moved by the deadline.",
-      "The family will have been moving for days before settling in.",
+      { subject: "The family", modal: "is able to", verb: "move" },
+      { subject: "The family", modal: "can", verb: "move" },
+      { subject: "The family", modal: "could", verb: "move" },
+      { subject: "The family", modal: "should", verb: "move" },
+      { subject: "The family", modal: "would", verb: "move" },
+      { subject: "The family", modal: "has to", verb: "move" },
+      { subject: "The family", modal: "had to", verb: "move" },
+      { subject: "The family", modal: "will have to", verb: "move" },
+      { subject: "The family", modal: "must", verb: "move" },
+      { subject: "The family", modal: "might", verb: "move" },
+      { subject: "The family", modal: "may", verb: "move" },
+      { subject: "The family", modal: "should not", verb: "move" },
+      { subject: "The family", modal: "must not", verb: "move" },
+      { subject: "The family", modal: "would like to", verb: "move" },
+      { subject: "The family", modal: "is going to", verb: "move" },
+      { subject: "The family", modal: "needs to", verb: "move" },
+      { subject: "The family", modal: "wants to", verb: "move" },
     ],
     rent: [
-      "Many people rent houses instead of buying them.",
-      "The couple is renting a house near the university.",
-      "We have rented this house for two years now.",
-      "They have been renting since graduating from college.",
-      "The family rented a vacation house last summer.",
-      "She was renting when she decided to buy instead.",
-      "They had rented several places before finding this one.",
-      "We had been renting for years before saving for a down payment.",
-      "The students will rent a house together next semester.",
-      "They will be renting while saving money for a purchase.",
-      "We will have rented for 5 years by next December.",
-      "The tenants will have been renting for a decade before moving.",
+      { subject: "The tenant", modal: "is able to", verb: "rent" },
+      { subject: "The tenant", modal: "can", verb: "rent" },
+      { subject: "The tenant", modal: "could", verb: "rent" },
+      { subject: "The tenant", modal: "should", verb: "rent" },
+      { subject: "The tenant", modal: "would", verb: "rent" },
+      { subject: "The tenant", modal: "has to", verb: "rent" },
+      { subject: "The tenant", modal: "had to", verb: "rent" },
+      { subject: "The tenant", modal: "will have to", verb: "rent" },
+      { subject: "The tenant", modal: "must", verb: "rent" },
+      { subject: "The tenant", modal: "might", verb: "rent" },
+      { subject: "The tenant", modal: "may", verb: "rent" },
+      { subject: "The tenant", modal: "should not", verb: "rent" },
+      { subject: "The tenant", modal: "must not", verb: "rent" },
+      { subject: "The tenant", modal: "would like to", verb: "rent" },
+      { subject: "The tenant", modal: "is going to", verb: "rent" },
+      { subject: "The tenant", modal: "needs to", verb: "rent" },
+      { subject: "The tenant", modal: "wants to", verb: "rent" },
     ],
     buy: [
-      "First-time buyers buy houses with government assistance.",
-      "The young family is buying their dream house.",
-      "We have bought a house in the suburbs.",
-      "They have been buying properties as investments.",
-      "The couple bought a fixer-upper last spring.",
-      "She was buying when interest rates suddenly dropped.",
-      "They had bought before the market prices increased.",
-      "We had been buying and selling houses for years as a business.",
-      "The investors will buy several houses this year.",
-      "They will be buying while the market remains favorable.",
-      "We will have bought our forever home by retirement.",
-      "The company will have been buying properties for decades.",
+      { subject: "The buyer", modal: "is able to", verb: "buy" },
+      { subject: "The buyer", modal: "can", verb: "buy" },
+      { subject: "The buyer", modal: "could", verb: "buy" },
+      { subject: "The buyer", modal: "should", verb: "buy" },
+      { subject: "The buyer", modal: "would", verb: "buy" },
+      { subject: "The buyer", modal: "has to", verb: "buy" },
+      { subject: "The buyer", modal: "had to", verb: "buy" },
+      { subject: "The buyer", modal: "will have to", verb: "buy" },
+      { subject: "The buyer", modal: "must", verb: "buy" },
+      { subject: "The buyer", modal: "might", verb: "buy" },
+      { subject: "The buyer", modal: "may", verb: "buy" },
+      { subject: "The buyer", modal: "should not", verb: "buy" },
+      { subject: "The buyer", modal: "must not", verb: "buy" },
+      { subject: "The buyer", modal: "would like to", verb: "buy" },
+      { subject: "The buyer", modal: "is going to", verb: "buy" },
+      { subject: "The buyer", modal: "needs to", verb: "buy" },
+      { subject: "The buyer", modal: "wants to", verb: "buy" },
     ],
     sell: [
-      "Real estate agents sell houses for a living.",
-      "The owners are selling their house due to relocation.",
-      "We have sold our previous house successfully.",
-      "They have been selling houses in this market for years.",
-      "The family sold their house within a week yesterday.",
-      "The couple was selling when they received multiple offers.",
-      "They had sold before the market conditions changed.",
-      "We had been selling for months before finding the right buyer.",
-      "The homeowners will sell next spring for the best price.",
-      "They will be selling while looking for a new place.",
-      "We will have sold by the time our lease expires.",
-      "The agency will have been selling houses for 50 years next month.",
+      { subject: "The seller", modal: "is able to", verb: "sell" },
+      { subject: "The seller", modal: "can", verb: "sell" },
+      { subject: "The seller", modal: "could", verb: "sell" },
+      { subject: "The seller", modal: "should", verb: "sell" },
+      { subject: "The seller", modal: "would", verb: "sell" },
+      { subject: "The seller", modal: "has to", verb: "sell" },
+      { subject: "The seller", modal: "had to", verb: "sell" },
+      { subject: "The seller", modal: "will have to", verb: "sell" },
+      { subject: "The seller", modal: "must", verb: "sell" },
+      { subject: "The seller", modal: "might", verb: "sell" },
+      { subject: "The seller", modal: "may", verb: "sell" },
+      { subject: "The seller", modal: "should not", verb: "sell" },
+      { subject: "The seller", modal: "must not", verb: "sell" },
+      { subject: "The seller", modal: "would like to", verb: "sell" },
+      { subject: "The seller", modal: "is going to", verb: "sell" },
+      { subject: "The seller", modal: "needs to", verb: "sell" },
+      { subject: "The seller", modal: "wants to", verb: "sell" },
     ],
   },
   car: {
     drive: [
-      "I drive my car to work every morning.",
-      "She is driving to the grocery store right now.",
-      "We have driven over 1000 miles this month.",
-      "He has been driving since he was 16 years old.",
-      "They drove across the country last summer.",
-      "She was driving when the accident happened.",
-      "He had driven for hours before stopping for gas.",
-      "We had been driving all night before reaching our destination.",
-      "I will drive you to the airport tomorrow.",
-      "They will be driving while we take the train.",
-      "We will have driven 500 miles by evening.",
-      "She will have been driving for 8 hours before taking a break.",
+      { SUBJECT: "I", AUX_VERB: "", VERB_IN_CORRECT_FORM: "drive", ADVERB_OF_TIME: "every morning" },
+      { SUBJECT: "She", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "driving", ADVERB_OF_TIME: "right now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "driven", ADVERB_OF_TIME: "this month" },
+      { SUBJECT: "He", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "driving", ADVERB_OF_TIME: "since 16" },
+      { SUBJECT: "They", AUX_VERB: "", VERB_IN_CORRECT_FORM: "drove", ADVERB_OF_TIME: "last summer" },
+      { SUBJECT: "She", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "driving", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "He", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "driven", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "driving", ADVERB_OF_TIME: "all night" },
+      { SUBJECT: "I", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "drive", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "driving", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "driven", ADVERB_OF_TIME: "by evening" },
+      { SUBJECT: "She", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "driving", ADVERB_OF_TIME: "for 8 hours" },
     ],
     park: [
-      "Drivers park their cars in designated spaces.",
-      "He is parking in the underground garage.",
-      "I have parked in this spot many times before.",
-      "She has been parking here since starting her job.",
-      "We parked near the entrance yesterday.",
-      "The valet was parking when the keys were dropped.",
-      "They had parked before the meter expired.",
-      "We had been parking illegally for weeks before getting caught.",
-      "You will park in the visitor section tomorrow.",
-      "They will be parking while we walk to the building.",
-      "We will have parked by the time the meeting starts.",
-      "The attendant will have been parking cars for 10 hours today.",
+      { SUBJECT: "Drivers", AUX_VERB: "", VERB_IN_CORRECT_FORM: "park", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "He", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "parking", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "I", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "parked", ADVERB_OF_TIME: "many times" },
+      { SUBJECT: "She", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "parking", ADVERB_OF_TIME: "since her job" },
+      { SUBJECT: "We", AUX_VERB: "", VERB_IN_CORRECT_FORM: "parked", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The valet", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "parking", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "parked", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "parking", ADVERB_OF_TIME: "for weeks" },
+      { SUBJECT: "You", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "park", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "parking", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "parked", ADVERB_OF_TIME: "by meeting" },
+      { SUBJECT: "The attendant", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "parking", ADVERB_OF_TIME: "for 10 hours" },
     ],
     start: [
-      "The car starts immediately in warm weather.",
-      "The engine is starting after several attempts.",
-      "The mechanic has started the car successfully.",
-      "The car has been starting poorly since winter began.",
-      "The old car started on the first try yesterday.",
-      "The engine was starting when it suddenly died.",
-      "The car had started before the battery completely failed.",
-      "The engine had been starting roughly for weeks before breaking down.",
-      "The car will start better after the tune-up.",
-      "The engine will be starting while the mechanic listens.",
-      "The car will have started by the time you return.",
-      "The engine will have been starting problems for months before replacement.",
+      { SUBJECT: "The car", AUX_VERB: "", VERB_IN_CORRECT_FORM: "starts", ADVERB_OF_TIME: "immediately" },
+      { SUBJECT: "The engine", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "starting", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "The mechanic", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "started", ADVERB_OF_TIME: "successfully" },
+      { SUBJECT: "The car", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "starting", ADVERB_OF_TIME: "poorly" },
+      { SUBJECT: "The old car", AUX_VERB: "", VERB_IN_CORRECT_FORM: "started", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The engine", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "starting", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The car", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "started", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The engine", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "starting", ADVERB_OF_TIME: "for weeks" },
+      { SUBJECT: "The car", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "start", ADVERB_OF_TIME: "better later" },
+      { SUBJECT: "The engine", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "starting", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The car", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "started", ADVERB_OF_TIME: "by return" },
+      { SUBJECT: "The engine", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "starting", ADVERB_OF_TIME: "for months" },
     ],
     stop: [
-      "The car stops smoothly at red lights.",
-      "The driver is stopping for pedestrians.",
-      "The vehicle has stopped in the middle of the road.",
-      "Traffic has been stopping frequently during rush hour.",
-      "The bus stopped at every corner yesterday.",
-      "The car was stopping when the brakes failed.",
-      "The vehicle had stopped before the collision occurred.",
-      "Traffic had been stopping and starting for hours during the jam.",
-      "The car will stop automatically if it detects danger.",
-      "Vehicles will be stopping while construction crews work.",
-      "The car will have stopped by the time police arrive.",
-      "Traffic will have been stopping intermittently all day.",
+      { SUBJECT: "The car", AUX_VERB: "", VERB_IN_CORRECT_FORM: "stops", ADVERB_OF_TIME: "smoothly" },
+      { SUBJECT: "The driver", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "stopping", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "The vehicle", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "stopped", ADVERB_OF_TIME: "suddenly" },
+      { SUBJECT: "Traffic", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "stopping", ADVERB_OF_TIME: "frequently" },
+      { SUBJECT: "The bus", AUX_VERB: "", VERB_IN_CORRECT_FORM: "stopped", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The car", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "stopping", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The vehicle", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "stopped", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "Traffic", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "stopping", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "The car", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "stop", ADVERB_OF_TIME: "automatically" },
+      { SUBJECT: "Vehicles", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "stopping", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "The car", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "stopped", ADVERB_OF_TIME: "by arrival" },
+      { SUBJECT: "Traffic", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "stopping", ADVERB_OF_TIME: "all day" },
     ],
     wash: [
-      "Car owners wash their vehicles every weekend.",
-      "He is washing his car in the driveway.",
-      "We have washed the car twice this month.",
-      "The car wash has been washing cars since 6 AM.",
-      "She washed her car before the job interview yesterday.",
-      "The teenager was washing cars when it started raining.",
-      "They had washed the car before the road trip.",
-      "We had been washing cars for charity all morning.",
-      "The service will wash your car while you wait.",
-      "They will be washing cars during the fundraiser.",
-      "We will have washed all the cars by closing time.",
-      "The crew will have been washing cars for 12 hours today.",
+      { SUBJECT: "Car owners", AUX_VERB: "", VERB_IN_CORRECT_FORM: "wash", ADVERB_OF_TIME: "every weekend" },
+      { SUBJECT: "He", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "washing", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "washed", ADVERB_OF_TIME: "twice this month" },
+      { SUBJECT: "The car wash", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "washing", ADVERB_OF_TIME: "since 6 AM" },
+      { SUBJECT: "She", AUX_VERB: "", VERB_IN_CORRECT_FORM: "washed", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The teenager", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "washing", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "washed", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "washing", ADVERB_OF_TIME: "all morning" },
+      { SUBJECT: "The service", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "wash", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "washing", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "washed", ADVERB_OF_TIME: "by closing" },
+      { SUBJECT: "The crew", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "washing", ADVERB_OF_TIME: "for 12 hours" },
     ],
     repair: [
-      "Mechanics repair cars at the auto shop daily.",
-      "The technician is repairing the transmission.",
-      "We have repaired the engine successfully.",
-      "The garage has been repairing cars since 1975.",
-      "The mechanic repaired the brakes yesterday.",
-      "The technician was repairing when he found another problem.",
-      "They had repaired the car before the warranty expired.",
-      "The shop had been repairing cars for hours before closing.",
-      "The mechanic will repair your car tomorrow.",
-      "They will be repairing while you use the loaner car.",
-      "We will have repaired everything by Friday.",
-      "The shop will have been repairing cars for 50 years next month.",
+      { SUBJECT: "Mechanics", AUX_VERB: "", VERB_IN_CORRECT_FORM: "repair", ADVERB_OF_TIME: "daily" },
+      { SUBJECT: "The technician", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "repairing", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "repaired", ADVERB_OF_TIME: "successfully" },
+      { SUBJECT: "The garage", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "repairing", ADVERB_OF_TIME: "since 1975" },
+      { SUBJECT: "The mechanic", AUX_VERB: "", VERB_IN_CORRECT_FORM: "repaired", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The technician", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "repairing", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "repaired", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The shop", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "repairing", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "The mechanic", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "repair", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "repairing", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "repaired", ADVERB_OF_TIME: "by Friday" },
+      { SUBJECT: "The shop", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "repairing", ADVERB_OF_TIME: "for 50 years" },
     ],
     fuel: [
-      "Drivers fuel their cars at gas stations regularly.",
-      "She is fueling up before the long trip.",
-      "We have fueled the car for the journey.",
-      "The station has been fueling cars since dawn.",
-      "He fueled the car at the cheapest station yesterday.",
-      "The driver was fueling when the price changed.",
-      "They had fueled before the prices increased.",
-      "We had been fueling at this station for years.",
-      "The attendant will fuel your car for you.",
-      "They will be fueling while we pay inside.",
-      "We will have fueled by the time you finish shopping.",
-      "The station will have been fueling cars for 24 hours straight.",
+      { SUBJECT: "Drivers", AUX_VERB: "", VERB_IN_CORRECT_FORM: "fuel", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "She", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "fueling up", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "fueled", ADVERB_OF_TIME: "for journey" },
+      { SUBJECT: "The station", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "fueling", ADVERB_OF_TIME: "since dawn" },
+      { SUBJECT: "He", AUX_VERB: "", VERB_IN_CORRECT_FORM: "fueled", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The driver", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "fueling", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "fueled", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "fueling", ADVERB_OF_TIME: "for years" },
+      { SUBJECT: "The attendant", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "fuel", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "fueling", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "fueled", ADVERB_OF_TIME: "by then" },
+      { SUBJECT: "The station", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "fueling", ADVERB_OF_TIME: "for 24 hours" },
     ],
     accelerate: [
-      "Sports cars accelerate quickly from zero to sixty.",
-      "The driver is accelerating onto the highway.",
-      "The car has accelerated smoothly since the tune-up.",
-      "The engine has been accelerating poorly lately.",
-      "The race car accelerated past all competitors yesterday.",
-      "The vehicle was accelerating when the engine stalled.",
-      "The car had accelerated before reaching the speed limit.",
-      "The engine had been accelerating roughly for weeks.",
-      "The new car will accelerate faster than the old one.",
-      "The car will be accelerating while merging into traffic.",
-      "The vehicle will have accelerated to full speed by then.",
-      "The engine will have been accelerating for several seconds before shifting.",
+      { SUBJECT: "Sports cars", AUX_VERB: "", VERB_IN_CORRECT_FORM: "accelerate", ADVERB_OF_TIME: "quickly" },
+      { SUBJECT: "The driver", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "accelerating", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "The car", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "accelerated", ADVERB_OF_TIME: "smoothly" },
+      { SUBJECT: "The engine", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "accelerating", ADVERB_OF_TIME: "poorly lately" },
+      { SUBJECT: "The race car", AUX_VERB: "", VERB_IN_CORRECT_FORM: "accelerated", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The vehicle", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "accelerating", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The car", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "accelerated", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The engine", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "accelerating", ADVERB_OF_TIME: "for weeks" },
+      { SUBJECT: "The new car", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "accelerate", ADVERB_OF_TIME: "faster" },
+      { SUBJECT: "The car", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "accelerating", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The vehicle", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "accelerated", ADVERB_OF_TIME: "by then" },
+      { SUBJECT: "The engine", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "accelerating", ADVERB_OF_TIME: "for seconds" },
     ],
     brake: [
-      "Careful drivers brake gradually at intersections.",
-      "The car is braking hard to avoid the obstacle.",
-      "The vehicle has braked successfully in time.",
-      "The brakes have been braking effectively since replacement.",
-      "The driver braked suddenly when the child appeared yesterday.",
-      "The car was braking when the ABS system activated.",
-      "The vehicle had braked before hitting the barrier.",
-      "The brakes had been braking poorly for months before failure.",
-      "The car will brake automatically in emergency situations.",
-      "The vehicle will be braking while approaching the toll booth.",
-      "The car will have braked by the time you see the stop sign.",
-      "The brakes will have been braking continuously during the mountain descent.",
+      { SUBJECT: "Careful drivers", AUX_VERB: "", VERB_IN_CORRECT_FORM: "brake", ADVERB_OF_TIME: "gradually" },
+      { SUBJECT: "The car", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "braking", ADVERB_OF_TIME: "hard now" },
+      { SUBJECT: "The vehicle", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "braked", ADVERB_OF_TIME: "successfully" },
+      { SUBJECT: "The brakes", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "braking", ADVERB_OF_TIME: "effectively" },
+      { SUBJECT: "The driver", AUX_VERB: "", VERB_IN_CORRECT_FORM: "braked", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The car", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "braking", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The vehicle", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "braked", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The brakes", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "braking", ADVERB_OF_TIME: "for months" },
+      { SUBJECT: "The car", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "brake", ADVERB_OF_TIME: "automatically" },
+      { SUBJECT: "The vehicle", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "braking", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "The car", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "braked", ADVERB_OF_TIME: "by then" },
+      { SUBJECT: "The brakes", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "braking", ADVERB_OF_TIME: "continuously" },
     ],
     reverse: [
-      "Drivers reverse their cars out of parking spaces.",
-      "She is reversing into the tight parking spot.",
-      "The car has reversed successfully into the garage.",
-      "The backup camera has been reversing assistance since installation.",
-      "He reversed carefully in the crowded parking lot yesterday.",
-      "The car was reversing when the sensor beeped.",
-      "The vehicle had reversed before the other car arrived.",
-      "We had been reversing for several minutes before getting it right.",
-      "The car will reverse automatically with the new system.",
-      "The vehicle will be reversing while the spotter guides.",
-      "The car will have reversed by the time you open the garage door.",
-      "The driver will have been reversing for several attempts before succeeding.",
+      { SUBJECT: "Drivers", AUX_VERB: "", VERB_IN_CORRECT_FORM: "reverse", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "She", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "reversing", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "The car", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "reversed", ADVERB_OF_TIME: "successfully" },
+      { SUBJECT: "The backup camera", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "reversing", ADVERB_OF_TIME: "since installation" },
+      { SUBJECT: "He", AUX_VERB: "", VERB_IN_CORRECT_FORM: "reversed", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The car", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "reversing", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The vehicle", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "reversed", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "reversing", ADVERB_OF_TIME: "for minutes" },
+      { SUBJECT: "The car", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "reverse", ADVERB_OF_TIME: "automatically" },
+      { SUBJECT: "The vehicle", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "reversing", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The car", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "reversed", ADVERB_OF_TIME: "by then" },
+      { SUBJECT: "The driver", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "reversing", ADVERB_OF_TIME: "for attempts" },
     ],
   },
   restaurant: {
     eat: [
-      "Customers eat delicious meals at this restaurant daily.",
-      "The family is eating dinner at their favorite table.",
-      "We have eaten here many times before.",
-      "They have been eating at this place since it opened.",
-      "The couple ate a romantic dinner here yesterday.",
-      "The children were eating when the surprise arrived.",
-      "They had eaten before the kitchen closed.",
-      "We had been eating for an hour before dessert arrived.",
-      "The group will eat lunch here tomorrow.",
-      "They will be eating while the band performs.",
-      "We will have eaten by the time the show starts.",
-      "The customers will have been eating for hours during the celebration.",
+      { SUBJECT: "Customers", AUX_VERB: "", VERB_IN_CORRECT_FORM: "eat", ADVERB_OF_TIME: "daily" },
+      { SUBJECT: "The family", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "eating", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "eaten", ADVERB_OF_TIME: "many times" },
+      { SUBJECT: "They", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "eating", ADVERB_OF_TIME: "since opening" },
+      { SUBJECT: "The couple", AUX_VERB: "", VERB_IN_CORRECT_FORM: "ate", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The children", AUX_VERB: "were", VERB_IN_CORRECT_FORM: "eating", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "eaten", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "eating", ADVERB_OF_TIME: "for an hour" },
+      { SUBJECT: "The group", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "eat", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "eating", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "eaten", ADVERB_OF_TIME: "by show" },
+      { SUBJECT: "The customers", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "eating", ADVERB_OF_TIME: "for hours" },
     ],
     order: [
-      "Customers order from the menu every day.",
-      "The waiter is taking their order right now.",
-      "We have ordered the chef's special tonight.",
-      "They have been ordering the same dish since last year.",
-      "The businessman ordered a quick lunch yesterday.",
-      "The family was ordering when the power went out.",
-      "They had ordered before realizing they forgot their wallet.",
-      "We had been ordering for 10 minutes before the waiter arrived.",
-      "The couple will order wine with their meal.",
-      "They will be ordering while we find a table.",
-      "We will have ordered by the time you arrive.",
-      "The customers will have been ordering continuously during the busy evening.",
+      { SUBJECT: "Customers", AUX_VERB: "", VERB_IN_CORRECT_FORM: "order", ADVERB_OF_TIME: "daily" },
+      { SUBJECT: "The waiter", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "taking order", ADVERB_OF_TIME: "right now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "ordered", ADVERB_OF_TIME: "tonight" },
+      { SUBJECT: "They", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "ordering", ADVERB_OF_TIME: "since last year" },
+      { SUBJECT: "The businessman", AUX_VERB: "", VERB_IN_CORRECT_FORM: "ordered", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The family", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "ordering", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "ordered", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "ordering", ADVERB_OF_TIME: "for 10 minutes" },
+      { SUBJECT: "The couple", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "order", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "ordering", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "ordered", ADVERB_OF_TIME: "by arrival" },
+      { SUBJECT: "The customers", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "ordering", ADVERB_OF_TIME: "continuously" },
     ],
     serve: [
-      "Waiters serve customers with professional courtesy.",
-      "The staff is serving the evening rush right now.",
-      "This restaurant has served the community for decades.",
-      "The waiters have been serving since the morning shift.",
-      "The server served our table efficiently yesterday.",
-      "The waiter was serving when he dropped the tray.",
-      "They had served all customers before closing time.",
-      "The staff had been serving for 12 hours before their break.",
-      "The new waiter will serve your table tonight.",
-      "They will be serving while the kitchen prepares fresh dishes.",
-      "The restaurant will have served 500 customers by midnight.",
-      "The staff will have been serving for 14 hours before closing.",
+      { SUBJECT: "Waiters", AUX_VERB: "", VERB_IN_CORRECT_FORM: "serve", ADVERB_OF_TIME: "daily" },
+      { SUBJECT: "The staff", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "serving", ADVERB_OF_TIME: "right now" },
+      { SUBJECT: "This restaurant", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "served", ADVERB_OF_TIME: "for decades" },
+      { SUBJECT: "The waiters", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "serving", ADVERB_OF_TIME: "since morning" },
+      { SUBJECT: "The server", AUX_VERB: "", VERB_IN_CORRECT_FORM: "served", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The waiter", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "serving", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "served", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The staff", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "serving", ADVERB_OF_TIME: "for 12 hours" },
+      { SUBJECT: "The new waiter", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "serve", ADVERB_OF_TIME: "tonight" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "serving", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The restaurant", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "served", ADVERB_OF_TIME: "by midnight" },
+      { SUBJECT: "The staff", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "serving", ADVERB_OF_TIME: "for 14 hours" },
     ],
     cook: [
-      "Professional chefs cook gourmet meals every day.",
-      "The chef is cooking your order in the kitchen.",
-      "We have cooked this recipe perfectly tonight.",
-      "The kitchen has been cooking since 5 AM preparation.",
-      "The cook prepared a special dish yesterday.",
-      "The chef was cooking when the fire alarm sounded.",
-      "They had cooked everything before the inspection arrived.",
-      "The kitchen had been cooking for hours before the first customer.",
-      "The chef will cook a demonstration meal tomorrow.",
-      "They will be cooking while guests tour the kitchen.",
-      "The kitchen will have cooked 200 meals by evening.",
-      "The chefs will have been cooking for 16 hours before closing.",
+      { SUBJECT: "Professional chefs", AUX_VERB: "", VERB_IN_CORRECT_FORM: "cook", ADVERB_OF_TIME: "daily" },
+      { SUBJECT: "The chef", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "cooking", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "cooked", ADVERB_OF_TIME: "perfectly tonight" },
+      { SUBJECT: "The kitchen", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "cooking", ADVERB_OF_TIME: "since 5 AM" },
+      { SUBJECT: "The cook", AUX_VERB: "", VERB_IN_CORRECT_FORM: "prepared", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The chef", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "cooking", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "cooked", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The kitchen", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "cooking", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "The chef", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "cook", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "cooking", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "The kitchen", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "cooked", ADVERB_OF_TIME: "by evening" },
+      { SUBJECT: "The chefs", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "cooking", ADVERB_OF_TIME: "for 16 hours" },
     ],
     pay: [
-      "Customers pay their bills before leaving the restaurant.",
-      "The couple is paying with their credit card.",
-      "We have paid for our meal and tip.",
-      "They have been paying with cash since the card reader broke.",
-      "The businessman paid quickly and left yesterday.",
-      "The family was paying when they realized they forgot dessert.",
-      "They had paid before noticing the mistake on the bill.",
-      "We had been paying separately before deciding to split evenly.",
-      "The customers will pay at the counter tomorrow.",
-      "They will be paying while we get the car.",
-      "We will have paid by the time the valet brings the car.",
-      "The customers will have been paying gradually throughout the evening.",
+      { SUBJECT: "Customers", AUX_VERB: "", VERB_IN_CORRECT_FORM: "pay", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "The couple", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "paying", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "paid", ADVERB_OF_TIME: "already" },
+      { SUBJECT: "They", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "paying", ADVERB_OF_TIME: "with cash" },
+      { SUBJECT: "The businessman", AUX_VERB: "", VERB_IN_CORRECT_FORM: "paid", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The family", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "paying", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "paid", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "paying", ADVERB_OF_TIME: "separately" },
+      { SUBJECT: "The customers", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "pay", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "paying", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "paid", ADVERB_OF_TIME: "by then" },
+      { SUBJECT: "The customers", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "paying", ADVERB_OF_TIME: "gradually" },
     ],
     reserve: [
-      "Customers reserve tables for special occasions regularly.",
-      "She is reserving a table for Saturday night.",
-      "We have reserved the private dining room.",
-      "They have been reserving the same table since their anniversary.",
-      "The couple reserved a romantic corner table yesterday.",
-      "The host was reserving when the phone system crashed.",
-      "They had reserved before the restaurant became fully booked.",
-      "We had been reserving tables for the wedding party all week.",
-      "The family will reserve a large table for the reunion.",
-      "They will be reserving while we confirm the guest count.",
-      "We will have reserved by the time invitations go out.",
-      "The restaurant will have been reserving tables for the holiday season.",
+      { SUBJECT: "Customers", AUX_VERB: "", VERB_IN_CORRECT_FORM: "reserve", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "She", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "reserving", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "reserved", ADVERB_OF_TIME: "already" },
+      { SUBJECT: "They", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "reserving", ADVERB_OF_TIME: "since anniversary" },
+      { SUBJECT: "The couple", AUX_VERB: "", VERB_IN_CORRECT_FORM: "reserved", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The host", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "reserving", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "reserved", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "reserving", ADVERB_OF_TIME: "all week" },
+      { SUBJECT: "The family", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "reserve", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "reserving", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "reserved", ADVERB_OF_TIME: "by then" },
+      { SUBJECT: "The restaurant", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "reserving", ADVERB_OF_TIME: "for season" },
     ],
     taste: [
-      "Food critics taste dishes to write reviews.",
-      "The chef is tasting the sauce for seasoning.",
-      "We have tasted every item on the menu.",
-      "The sommelier has been tasting wines since morning.",
-      "The customer tasted the wine before approving yesterday.",
-      "The judge was tasting when she discovered the winning flavor.",
-      "They had tasted all appetizers before making their choice.",
-      "We had been tasting samples for an hour before deciding.",
-      "The food blogger will taste the new menu tomorrow.",
-      "They will be tasting while the chef explains each dish.",
-      "We will have tasted everything by the end of the evening.",
-      "The panel will have been tasting for hours before announcing winners.",
+      { SUBJECT: "Food critics", AUX_VERB: "", VERB_IN_CORRECT_FORM: "taste", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "The chef", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "tasting", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "tasted", ADVERB_OF_TIME: "every item" },
+      { SUBJECT: "The sommelier", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "tasting", ADVERB_OF_TIME: "since morning" },
+      { SUBJECT: "The customer", AUX_VERB: "", VERB_IN_CORRECT_FORM: "tasted", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The judge", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "tasting", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "tasted", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "tasting", ADVERB_OF_TIME: "for an hour" },
+      { SUBJECT: "The food blogger", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "taste", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "tasting", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "tasted", ADVERB_OF_TIME: "by evening" },
+      { SUBJECT: "The panel", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "tasting", ADVERB_OF_TIME: "for hours" },
     ],
     recommend: [
-      "Servers recommend popular dishes to new customers.",
-      "The waiter is recommending the daily special.",
-      "We have recommended this restaurant to all our friends.",
-      "The staff has been recommending the seafood since it arrived fresh.",
-      "The sommelier recommended an excellent wine pairing yesterday.",
-      "The server was recommending dessert when we were already full.",
-      "They had recommended the chef's special before it sold out.",
-      "We had been recommending this place for years before it got famous.",
-      "The food critic will recommend this restaurant in her review.",
-      "They will be recommending while we browse the menu.",
-      "We will have recommended this place to everyone by next week.",
-      "The staff will have been recommending the seasonal menu all month.",
+      { SUBJECT: "Servers", AUX_VERB: "", VERB_IN_CORRECT_FORM: "recommend", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "The waiter", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "recommending", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "recommended", ADVERB_OF_TIME: "to friends" },
+      { SUBJECT: "The staff", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "recommending", ADVERB_OF_TIME: "since arrival" },
+      { SUBJECT: "The sommelier", AUX_VERB: "", VERB_IN_CORRECT_FORM: "recommended", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The server", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "recommending", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "recommended", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "recommending", ADVERB_OF_TIME: "for years" },
+      { SUBJECT: "The food critic", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "recommend", ADVERB_OF_TIME: "next week" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "recommending", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "recommended", ADVERB_OF_TIME: "by next week" },
+      { SUBJECT: "The staff", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "recommending", ADVERB_OF_TIME: "all month" },
     ],
     deliver: [
-      "The restaurant delivers food to nearby neighborhoods.",
-      "The driver is delivering our order right now.",
-      "They have delivered to our office many times.",
-      "The service has been delivering since the pandemic started.",
-      "The delivery person delivered our lunch quickly yesterday.",
-      "The driver was delivering when the GPS stopped working.",
-      "They had delivered before the customer called to complain.",
-      "The service had been delivering for hours during the storm.",
-      "The restaurant will deliver until 11 PM tonight.",
-      "They will be delivering while we set up for the meeting.",
-      "The food will have delivered by the time guests arrive.",
-      "The service will have been delivering for 12 hours straight today.",
+      { SUBJECT: "The restaurant", AUX_VERB: "", VERB_IN_CORRECT_FORM: "delivers", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "The driver", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "delivering", ADVERB_OF_TIME: "right now" },
+      { SUBJECT: "They", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "delivered", ADVERB_OF_TIME: "many times" },
+      { SUBJECT: "The service", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "delivering", ADVERB_OF_TIME: "since pandemic" },
+      { SUBJECT: "The delivery person", AUX_VERB: "", VERB_IN_CORRECT_FORM: "delivered", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The driver", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "delivering", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "delivered", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The service", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "delivering", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "The restaurant", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "deliver", ADVERB_OF_TIME: "tonight" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "delivering", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "The food", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "delivered", ADVERB_OF_TIME: "by arrival" },
+      { SUBJECT: "The service", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "delivering", ADVERB_OF_TIME: "for 12 hours" },
     ],
     enjoy: [
-      "Diners enjoy memorable meals at fine restaurants.",
-      "The couple is enjoying their anniversary dinner.",
-      "We have enjoyed every visit to this establishment.",
-      "They have been enjoying the live music since it started.",
-      "The family enjoyed a wonderful celebration yesterday.",
-      "The guests were enjoying dessert when the surprise began.",
-      "They had enjoyed the meal before the bill arrived.",
-      "We had been enjoying the evening for hours before realizing the time.",
-      "The visitors will enjoy the chef's tasting menu.",
-      "They will be enjoying while we take photos.",
-      "We will have enjoyed ourselves by the end of the evening.",
-      "The diners will have been enjoying the experience for hours.",
+      { SUBJECT: "Diners", AUX_VERB: "", VERB_IN_CORRECT_FORM: "enjoy", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "The couple", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "enjoying", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "enjoyed", ADVERB_OF_TIME: "every visit" },
+      { SUBJECT: "They", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "enjoying", ADVERB_OF_TIME: "since started" },
+      { SUBJECT: "The family", AUX_VERB: "", VERB_IN_CORRECT_FORM: "enjoyed", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The guests", AUX_VERB: "were", VERB_IN_CORRECT_FORM: "enjoying", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "enjoyed", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "enjoying", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "The visitors", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "enjoy", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "enjoying", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "enjoyed", ADVERB_OF_TIME: "by end" },
+      { SUBJECT: "The diners", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "enjoying", ADVERB_OF_TIME: "for hours" },
     ],
   },
   school: {
     study: [
-      "Students study various subjects every day at school.",
-      "She is studying for her final exams right now.",
-      "We have studied this topic extensively this semester.",
-      "They have been studying since early morning.",
-      "The class studied Shakespeare's plays yesterday.",
-      "The student was studying when the fire drill occurred.",
-      "They had studied before the surprise quiz was announced.",
-      "We had been studying for hours before taking a break.",
-      "The students will study abroad next year.",
-      "They will be studying while we prepare the classroom.",
-      "We will have studied all chapters by the exam date.",
-      "The class will have been studying for months before graduation.",
+      { SUBJECT: "Students", AUX_VERB: "", VERB_IN_CORRECT_FORM: "study", ADVERB_OF_TIME: "daily" },
+      { SUBJECT: "She", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "studying", ADVERB_OF_TIME: "right now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "studied", ADVERB_OF_TIME: "this semester" },
+      { SUBJECT: "They", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "studying", ADVERB_OF_TIME: "since morning" },
+      { SUBJECT: "The class", AUX_VERB: "", VERB_IN_CORRECT_FORM: "studied", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The student", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "studying", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "studied", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "studying", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "The students", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "study", ADVERB_OF_TIME: "next year" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "studying", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "studied", ADVERB_OF_TIME: "by exam" },
+      { SUBJECT: "The class", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "studying", ADVERB_OF_TIME: "for months" },
     ],
     teach: [
-      "Experienced teachers teach students with passion daily.",
-      "The professor is teaching advanced mathematics today.",
-      "She has taught at this school for fifteen years.",
-      "The faculty has been teaching online since the pandemic.",
-      "The substitute teacher taught our class yesterday.",
-      "The instructor was teaching when the principal visited.",
-      "They had taught this curriculum before the changes were made.",
-      "She had been teaching for decades before retiring.",
-      "The new teacher will teach science next semester.",
-      "They will be teaching while students take notes.",
-      "She will have taught thousands of students by retirement.",
-      "The professor will have been teaching for 30 years next month.",
+      { SUBJECT: "Experienced teachers", AUX_VERB: "", VERB_IN_CORRECT_FORM: "teach", ADVERB_OF_TIME: "daily" },
+      { SUBJECT: "The professor", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "teaching", ADVERB_OF_TIME: "today" },
+      { SUBJECT: "She", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "taught", ADVERB_OF_TIME: "for fifteen years" },
+      { SUBJECT: "The faculty", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "teaching", ADVERB_OF_TIME: "since pandemic" },
+      { SUBJECT: "The substitute teacher", AUX_VERB: "", VERB_IN_CORRECT_FORM: "taught", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The instructor", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "teaching", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "taught", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "She", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "teaching", ADVERB_OF_TIME: "for decades" },
+      { SUBJECT: "The new teacher", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "teach", ADVERB_OF_TIME: "next semester" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "teaching", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "She", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "taught", ADVERB_OF_TIME: "by retirement" },
+      { SUBJECT: "The professor", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "teaching", ADVERB_OF_TIME: "for 30 years" },
     ],
     learn: [
-      "Children learn new concepts every day in school.",
-      "The students are learning about ancient civilizations.",
-      "We have learned so much in this class.",
-      "They have been learning French since elementary school.",
-      "The class learned about photosynthesis yesterday.",
-      "The student was learning when the concept suddenly clicked.",
-      "They had learned the basics before advancing to complex topics.",
-      "We had been learning gradually before everything made sense.",
-      "The students will learn programming next year.",
-      "They will be learning while the teacher demonstrates.",
-      "We will have learned everything by the final exam.",
-      "The class will have been learning for four years before graduating.",
+      { SUBJECT: "Children", AUX_VERB: "", VERB_IN_CORRECT_FORM: "learn", ADVERB_OF_TIME: "daily" },
+      { SUBJECT: "The students", AUX_VERB: "are", VERB_IN_CORRECT_FORM: "learning", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "learned", ADVERB_OF_TIME: "much" },
+      { SUBJECT: "They", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "learning", ADVERB_OF_TIME: "since elementary" },
+      { SUBJECT: "The class", AUX_VERB: "", VERB_IN_CORRECT_FORM: "learned", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The student", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "learning", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "learned", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "learning", ADVERB_OF_TIME: "gradually" },
+      { SUBJECT: "The students", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "learn", ADVERB_OF_TIME: "next year" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "learning", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "learned", ADVERB_OF_TIME: "by exam" },
+      { SUBJECT: "The class", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "learning", ADVERB_OF_TIME: "for four years" },
     ],
     write: [
-      "Students write essays and reports regularly in English class.",
-      "She is writing her research paper right now.",
-      "We have written three assignments this week.",
-      "They have been writing their thesis since last semester.",
-      "The student wrote an excellent story yesterday.",
-      "The class was writing when the bell rang.",
-      "They had written their rough drafts before peer review.",
-      "We had been writing for two hours before finishing.",
-      "The students will write their final papers next month.",
-      "They will be writing while we grade other assignments.",
-      "We will have written all required essays by semester end.",
-      "The class will have been writing continuously throughout the course.",
+      { SUBJECT: "Students", AUX_VERB: "", VERB_IN_CORRECT_FORM: "write", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "She", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "writing", ADVERB_OF_TIME: "right now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "written", ADVERB_OF_TIME: "this week" },
+      { SUBJECT: "They", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "writing", ADVERB_OF_TIME: "since last semester" },
+      { SUBJECT: "The student", AUX_VERB: "", VERB_IN_CORRECT_FORM: "wrote", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The class", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "writing", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "written", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "writing", ADVERB_OF_TIME: "for two hours" },
+      { SUBJECT: "The students", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "write", ADVERB_OF_TIME: "next month" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "writing", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "written", ADVERB_OF_TIME: "by semester end" },
+      { SUBJECT: "The class", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "writing", ADVERB_OF_TIME: "continuously" },
     ],
     read: [
-      "Students read books and articles for their assignments.",
-      "The class is reading 'To Kill a Mockingbird' currently.",
-      "We have read five novels this semester.",
-      "They have been reading since the library opened.",
-      "The student read the entire book yesterday.",
-      "The class was reading when the author visited.",
-      "They had read the assignment before class discussion.",
-      "We had been reading for hours before understanding the theme.",
-      "The students will read poetry next unit.",
-      "They will be reading while we prepare discussion questions.",
-      "We will have read all required books by graduation.",
-      "The class will have been reading classic literature all year.",
+      { SUBJECT: "Students", AUX_VERB: "", VERB_IN_CORRECT_FORM: "read", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "The class", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "reading", ADVERB_OF_TIME: "currently" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "read", ADVERB_OF_TIME: "this semester" },
+      { SUBJECT: "They", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "reading", ADVERB_OF_TIME: "since library opened" },
+      { SUBJECT: "The student", AUX_VERB: "", VERB_IN_CORRECT_FORM: "read", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The class", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "reading", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "read", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "reading", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "The students", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "read", ADVERB_OF_TIME: "next unit" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "reading", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "read", ADVERB_OF_TIME: "by graduation" },
+      { SUBJECT: "The class", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "reading", ADVERB_OF_TIME: "all year" },
     ],
     graduate: [
-      "Students graduate from high school every June.",
-      "She is graduating with honors this spring.",
-      "We have graduated from the program successfully.",
-      "They have been graduating students since 1950.",
-      "The class graduated during a beautiful ceremony yesterday.",
-      "The student was graduating when her family arrived.",
-      "They had graduated before the celebration began.",
-      "We had been graduating students for hours before the ceremony ended.",
-      "The seniors will graduate next month.",
-      "They will be graduating while families watch proudly.",
-      "We will have graduated by the time summer begins.",
-      "The school will have been graduating students for 100 years.",
+      { SUBJECT: "Students", AUX_VERB: "", VERB_IN_CORRECT_FORM: "graduate", ADVERB_OF_TIME: "every June" },
+      { SUBJECT: "She", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "graduating", ADVERB_OF_TIME: "this spring" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "graduated", ADVERB_OF_TIME: "successfully" },
+      { SUBJECT: "They", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "graduating", ADVERB_OF_TIME: "since 1950" },
+      { SUBJECT: "The class", AUX_VERB: "", VERB_IN_CORRECT_FORM: "graduated", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The student", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "graduating", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "graduated", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "graduating", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "The seniors", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "graduate", ADVERB_OF_TIME: "next month" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "graduating", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "graduated", ADVERB_OF_TIME: "by summer" },
+      { SUBJECT: "The school", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "graduating", ADVERB_OF_TIME: "for 100 years" },
     ],
     attend: [
-      "Students attend classes regularly throughout the semester.",
-      "She is attending the lecture in the main auditorium.",
-      "We have attended every session this year.",
-      "They have been attending since the semester started.",
-      "The student attended the optional workshop yesterday.",
-      "The class was attending when the guest speaker arrived.",
-      "They had attended before the policy changed.",
-      "We had been attending for weeks before missing our first class.",
-      "The students will attend the field trip tomorrow.",
-      "They will be attending while we take attendance.",
-      "We will have attended all required sessions by finals week.",
-      "The students will have been attending for four years before graduating.",
+      { SUBJECT: "Students", AUX_VERB: "", VERB_IN_CORRECT_FORM: "attend", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "She", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "attending", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "attended", ADVERB_OF_TIME: "every session" },
+      { SUBJECT: "They", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "attending", ADVERB_OF_TIME: "since semester" },
+      { SUBJECT: "The student", AUX_VERB: "", VERB_IN_CORRECT_FORM: "attended", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The class", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "attending", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "attending", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "attending", ADVERB_OF_TIME: "for weeks" },
+      { SUBJECT: "The students", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "attend", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "attending", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "attended", ADVERB_OF_TIME: "by finals" },
+      { SUBJECT: "The students", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "attending", ADVERB_OF_TIME: "for four years" },
     ],
     examine: [
-      "Teachers examine student work carefully for assessment.",
-      "The professor is examining the research proposals today.",
-      "We have examined all the evidence thoroughly.",
-      "The committee has been examining applications since morning.",
-      "The instructor examined the test papers yesterday.",
-      "The teacher was examining when she found the plagiarism.",
-      "They had examined everything before making their decision.",
-      "We had been examining for hours before reaching a conclusion.",
-      "The board will examine the new curriculum tomorrow.",
-      "They will be examining while students wait for results.",
-      "We will have examined all submissions by the deadline.",
-      "The committee will have been examining for days before announcing results.",
+      { SUBJECT: "Teachers", AUX_VERB: "", VERB_IN_CORRECT_FORM: "examine", ADVERB_OF_TIME: "carefully" },
+      { SUBJECT: "The professor", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "examining", ADVERB_OF_TIME: "today" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "examined", ADVERB_OF_TIME: "thoroughly" },
+      { SUBJECT: "The committee", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "examining", ADVERB_OF_TIME: "since morning" },
+      { SUBJECT: "The instructor", AUX_VERB: "", VERB_IN_CORRECT_FORM: "examined", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The teacher", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "examining", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "examined", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "examining", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "The board", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "examine", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "examining", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "examined", ADVERB_OF_TIME: "by deadline" },
+      { SUBJECT: "The committee", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "examining", ADVERB_OF_TIME: "for days" },
     ],
     practice: [
-      "Students practice skills through repetition and exercises.",
-      "The band is practicing for the spring concert.",
-      "We have practiced this piece many times.",
-      "They have been practicing since after school.",
-      "The team practiced their presentation yesterday.",
-      "The student was practicing when she mastered the technique.",
-      "They had practiced before the performance began.",
-      "We had been practicing for months before the competition.",
-      "The class will practice public speaking next week.",
-      "They will be practicing while we set up equipment.",
-      "We will have practiced enough by the recital date.",
-      "The students will have been practicing for hours before the show.",
+      { SUBJECT: "Students", AUX_VERB: "", VERB_IN_CORRECT_FORM: "practice", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "The band", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "practicing", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "practiced", ADVERB_OF_TIME: "many times" },
+      { SUBJECT: "They", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "practicing", ADVERB_OF_TIME: "since after school" },
+      { SUBJECT: "The team", AUX_VERB: "", VERB_IN_CORRECT_FORM: "practiced", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The student", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "practicing", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "practiced", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "practicing", ADVERB_OF_TIME: "for months" },
+      { SUBJECT: "The class", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "practice", ADVERB_OF_TIME: "next week" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "practicing", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "practiced", ADVERB_OF_TIME: "enough by recital" },
+      { SUBJECT: "The students", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "practicing", ADVERB_OF_TIME: "for hours" },
     ],
     discuss: [
-      "Students discuss topics in small groups regularly.",
-      "The class is discussing the novel's themes today.",
-      "We have discussed this issue extensively.",
-      "They have been discussing since the debate began.",
-      "The students discussed current events yesterday.",
-      "The group was discussing when they reached consensus.",
-      "They had discussed all options before voting.",
-      "We had been discussing for an hour before making progress.",
-      "The class will discuss the project requirements tomorrow.",
-      "They will be discussing while we observe their interaction.",
-      "We will have discussed everything by the end of class.",
-      "The students will have been discussing for the entire period.",
+      { SUBJECT: "Students", AUX_VERB: "", VERB_IN_CORRECT_FORM: "discuss", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "The class", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "discussing", ADVERB_OF_TIME: "today" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "discussed", ADVERB_OF_TIME: "extensively" },
+      { SUBJECT: "They", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "discussing", ADVERB_OF_TIME: "since debate" },
+      { SUBJECT: "The students", AUX_VERB: "", VERB_IN_CORRECT_FORM: "discussed", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The group", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "discussing", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "discussed", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "discussing", ADVERB_OF_TIME: "for an hour" },
+      { SUBJECT: "The class", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "discuss", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "discussing", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "discussed", ADVERB_OF_TIME: "by end of class" },
+      { SUBJECT: "The students", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "discussing", ADVERB_OF_TIME: "for the period" },
     ],
   },
   hospital: {
     treat: [
-      "Doctors treat patients with various medical conditions daily.",
-      "The physician is treating a patient in room 302.",
-      "We have treated this condition successfully before.",
-      "The medical team has been treating patients since dawn.",
-      "The doctor treated the emergency case yesterday.",
-      "The nurse was treating when the patient's condition improved.",
-      "They had treated similar cases before this outbreak.",
-      "The staff had been treating patients for 12 hours straight.",
-      "The specialist will treat your condition next week.",
-      "They will be treating while we prepare the operating room.",
-      "We will have treated all patients by shift change.",
-      "The hospital will have been treating patients for 50 years next month.",
+      { SUBJECT: "Doctors", AUX_VERB: "", VERB_IN_CORRECT_FORM: "treat", ADVERB_OF_TIME: "daily" },
+      { SUBJECT: "The physician", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "treating", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "treated", ADVERB_OF_TIME: "successfully before" },
+      { SUBJECT: "The medical team", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "treating", ADVERB_OF_TIME: "since dawn" },
+      { SUBJECT: "The doctor", AUX_VERB: "", VERB_IN_CORRECT_FORM: "treated", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The nurse", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "treating", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "treated", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The staff", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "treating", ADVERB_OF_TIME: "for 12 hours" },
+      { SUBJECT: "The specialist", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "treat", ADVERB_OF_TIME: "next week" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "treating", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "treated", ADVERB_OF_TIME: "by shift" },
+      { SUBJECT: "The hospital", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "treating", ADVERB_OF_TIME: "for 50 years" },
     ],
     examine: [
-      "Medical professionals examine patients thoroughly during visits.",
-      "The doctor is examining the patient's symptoms right now.",
-      "We have examined all test results carefully.",
-      "The medical team has been examining since morning rounds.",
-      "The physician examined the patient thoroughly yesterday.",
-      "The doctor was examining when the diagnosis became clear.",
-      "They had examined everything before ordering more tests.",
-      "We had been examining for an hour before finding the cause.",
-      "The specialist will examine you tomorrow morning.",
-      "They will be examining while we review your medical history.",
-      "We will have examined all possibilities by evening.",
-      "The doctors will have been examining patients all day.",
+      { SUBJECT: "Medical professionals", AUX_VERB: "", VERB_IN_CORRECT_FORM: "examine", ADVERB_OF_TIME: "thoroughly" },
+      { SUBJECT: "The doctor", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "examining", ADVERB_OF_TIME: "right now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "examined", ADVERB_OF_TIME: "carefully" },
+      { SUBJECT: "The medical team", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "examining", ADVERB_OF_TIME: "since morning" },
+      { SUBJECT: "The physician", AUX_VERB: "", VERB_IN_CORRECT_FORM: "examined", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The doctor", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "examining", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "examined", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "examining", ADVERB_OF_TIME: "for an hour" },
+      { SUBJECT: "The specialist", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "examine", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "examining", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "examined", ADVERB_OF_TIME: "by evening" },
+      { SUBJECT: "The doctors", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "examining", ADVERB_OF_TIME: "all day" },
     ],
     heal: [
-      "The human body heals naturally with proper care.",
-      "The wound is healing nicely after surgery.",
-      "The patient has healed completely from the injury.",
-      "The broken bone has been healing since the cast was applied.",
-      "The cut healed without leaving a scar yesterday.",
-      "The patient was healing when complications arose.",
-      "The injury had healed before the follow-up appointment.",
-      "The tissue had been healing for weeks before full recovery.",
-      "The medicine will heal the infection quickly.",
-      "The body will be healing while you rest.",
-      "The wound will have healed by your next visit.",
-      "The patient will have been healing for months before full recovery.",
+      { SUBJECT: "The human body", AUX_VERB: "", VERB_IN_CORRECT_FORM: "heals", ADVERB_OF_TIME: "naturally" },
+      { SUBJECT: "The wound", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "healing", ADVERB_OF_TIME: "nicely" },
+      { SUBJECT: "The patient", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "healed", ADVERB_OF_TIME: "completely" },
+      { SUBJECT: "The broken bone", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "healing", ADVERB_OF_TIME: "since cast" },
+      { SUBJECT: "The cut", AUX_VERB: "", VERB_IN_CORRECT_FORM: "healed", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The patient", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "healing", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "The injury", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "healed", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The tissue", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "healing", ADVERB_OF_TIME: "for weeks" },
+      { SUBJECT: "The medicine", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "healed", ADVERB_OF_TIME: "quickly" },
+      { SUBJECT: "The body", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "healing", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "The wound", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "healed", ADVERB_OF_TIME: "by next visit" },
+      { SUBJECT: "The patient", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "healing", ADVERB_OF_TIME: "for months" },
     ],
     operate: [
-      "Surgeons operate on patients to save lives daily.",
-      "The surgical team is operating on the emergency case.",
-      "We have operated successfully on similar conditions.",
-      "The surgeon has been operating since early morning.",
-      "The doctor operated for six hours yesterday.",
-      "The surgeon was operating when the power briefly failed.",
-      "They had operated before the patient's condition worsened.",
-      "The team had been operating for hours before taking a break.",
-      "The specialist will operate next Tuesday morning.",
-      "They will be operating while we monitor vital signs.",
-      "We will have operated by the time family arrives.",
-      "The surgeon will have been operating for 8 hours before finishing.",
+      { SUBJECT: "Surgeons", AUX_VERB: "", VERB_IN_CORRECT_FORM: "operate", ADVERB_OF_TIME: "daily" },
+      { SUBJECT: "The surgical team", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "operating", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "operated", ADVERB_OF_TIME: "successfully" },
+      { SUBJECT: "The surgeon", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "operating", ADVERB_OF_TIME: "since morning" },
+      { SUBJECT: "The doctor", AUX_VERB: "", VERB_IN_CORRECT_FORM: "operated", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The surgeon", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "operating", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "operated", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The team", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "operating", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "The specialist", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "operate", ADVERB_OF_TIME: "next Tuesday" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "operating", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "operated", ADVERB_OF_TIME: "by arrival" },
+      { SUBJECT: "The surgeon", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "operating", ADVERB_OF_TIME: "for 8 hours" },
     ],
     diagnose: [
-      "Experienced doctors diagnose illnesses accurately.",
-      "The physician is diagnosing the patient's condition.",
-      "We have diagnosed this rare disease before.",
-      "The medical team has been diagnosing since reviewing symptoms.",
-      "The doctor diagnosed the problem immediately yesterday.",
-      "The specialist was diagnosing when the test results arrived.",
-      "They had diagnosed correctly before treatment began.",
-      "We had been diagnosing for days before identifying the cause.",
-      "The expert will diagnose your condition tomorrow.",
-      "They will be diagnosing while we run additional tests.",
-      "We will have diagnosed by the time results are complete.",
-      "The doctors will have been diagnosing complex cases all week.",
+      { SUBJECT: "Experienced doctors", AUX_VERB: "", VERB_IN_CORRECT_FORM: "diagnose", ADVERB_OF_TIME: "accurately" },
+      { SUBJECT: "The physician", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "diagnosing", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "diagnosed", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The medical team", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "diagnosing", ADVERB_OF_TIME: "since review" },
+      { SUBJECT: "The doctor", AUX_VERB: "", VERB_IN_CORRECT_FORM: "diagnosed", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The specialist", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "diagnosing", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "diagnosed", ADVERB_OF_TIME: "correctly before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "diagnosing", ADVERB_OF_TIME: "for days" },
+      { SUBJECT: "The expert", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "diagnose", ADVERB_OF_TIME: "tomorrow" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "diagnosing", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "diagnosed", ADVERB_OF_TIME: "by completion" },
+      { SUBJECT: "The doctors", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "diagnosing", ADVERB_OF_TIME: "all week" },
     ],
     recover: [
-      "Patients recover from illnesses with proper treatment.",
-      "The patient is recovering well after surgery.",
-      "She has recovered completely from the accident.",
-      "He has been recovering since the operation last month.",
-      "The patient recovered faster than expected yesterday.",
-      "She was recovering when visitors were finally allowed.",
-      "They had recovered before being discharged home.",
-      "The patient had been recovering for weeks before walking again.",
-      "You will recover fully with physical therapy.",
-      "The patient will be recovering while family provides support.",
-      "She will have recovered by the time school starts.",
-      "The patient will have been recovering for months before returning to work.",
+      { SUBJECT: "Patients", AUX_VERB: "", VERB_IN_CORRECT_FORM: "recover", ADVERB_OF_TIME: "well" },
+      { SUBJECT: "The patient", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "recovering", ADVERB_OF_TIME: "well" },
+      { SUBJECT: "She", AUX_VERB: "has", VERB_IN_CORRECT_FORM: "recovered", ADVERB_OF_TIME: "completely" },
+      { SUBJECT: "He", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "recovering", ADVERB_OF_TIME: "since last month" },
+      { SUBJECT: "The patient", AUX_VERB: "", VERB_IN_CORRECT_FORM: "recovered", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "She", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "recovering", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "recovered", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The patient", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "recovering", ADVERB_OF_TIME: "for weeks" },
+      { SUBJECT: "You", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "recover", ADVERB_OF_TIME: "fully" },
+      { SUBJECT: "The patient", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "recovering", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "She", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "recovered", ADVERB_OF_TIME: "by school" },
+      { SUBJECT: "The patient", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "recovering", ADVERB_OF_TIME: "for months" },
     ],
     visit: [
-      "Family members visit patients in the hospital regularly.",
-      "The relatives are visiting during afternoon hours.",
-      "We have visited every day since the admission.",
-      "They have been visiting since visiting hours began.",
-      "The children visited their grandmother yesterday.",
-      "The family was visiting when the doctor made rounds.",
-      "They had visited before the patient was moved.",
-      "We had been visiting for hours before being asked to leave.",
-      "Friends will visit during the weekend.",
-      "They will be visiting while we update medical records.",
-      "We will have visited by the time you arrive.",
-      "The family will have been visiting for hours before going home.",
+      { SUBJECT: "Family members", AUX_VERB: "", VERB_IN_CORRECT_FORM: "visit", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "The relatives", AUX_VERB: "are", VERB_IN_CORRECT_FORM: "visiting", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "visited", ADVERB_OF_TIME: "every day" },
+      { SUBJECT: "They", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "visiting", ADVERB_OF_TIME: "since hours began" },
+      { SUBJECT: "The children", AUX_VERB: "", VERB_IN_CORRECT_FORM: "visited", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The family", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "visiting", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "visited", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "visiting", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "Friends", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "visit", ADVERB_OF_TIME: "during weekend" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "visiting", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "visited", ADVERB_OF_TIME: "by arrival" },
+      { SUBJECT: "The family", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "visiting", ADVERB_OF_TIME: "for hours" },
     ],
     prescribe: [
-      "Doctors prescribe medications to treat various conditions.",
-      "The physician is prescribing antibiotics for the infection.",
-      "We have prescribed this treatment successfully before.",
-      "The doctor has been prescribing since reviewing symptoms.",
-      "The specialist prescribed a new medication yesterday.",
-      "The doctor was prescribing when the pharmacy called.",
-      "They had prescribed before the patient's allergies were known.",
-      "We had been prescribing carefully for patients with multiple conditions.",
-      "The doctor will prescribe pain medication after surgery.",
-      "They will be prescribing while we check insurance coverage.",
-      "We will have prescribed by the time you reach the pharmacy.",
-      "The physician will have been prescribing for 20 years next month.",
+      { SUBJECT: "Doctors", AUX_VERB: "", VERB_IN_CORRECT_FORM: "prescribe", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "The physician", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "prescribing", ADVERB_OF_TIME: "now" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "prescribed", ADVERB_OF_TIME: "successfully before" },
+      { SUBJECT: "The doctor", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "prescribing", ADVERB_OF_TIME: "since review" },
+      { SUBJECT: "The specialist", AUX_VERB: "", VERB_IN_CORRECT_FORM: "prescribed", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The doctor", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "prescribing", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "prescribed", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "prescribing", ADVERB_OF_TIME: "carefully" },
+      { SUBJECT: "The doctor", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "prescribe", ADVERB_OF_TIME: "after surgery" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "prescribing", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "prescribed", ADVERB_OF_TIME: "by pharmacy" },
+      { SUBJECT: "The physician", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "prescribing", ADVERB_OF_TIME: "for 20 years" },
     ],
     nurse: [
-      "Professional nurses nurse patients back to health daily.",
-      "The RN is nursing the post-operative patient carefully.",
-      "We have nursed many patients through difficult recoveries.",
-      "The nursing staff has been nursing since the night shift.",
-      "The nurse nursed the patient through the crisis yesterday.",
-      "She was nursing when the patient's fever finally broke.",
-      "They had nursed the patient before the family arrived.",
-      "The staff had been nursing for hours before the patient stabilized.",
-      "The nurse will nurse you back to full health.",
-      "They will be nursing while monitoring your progress.",
-      "We will have nursed you back to strength by discharge.",
-      "The nurses will have been nursing patients for 12 hours straight.",
+      { SUBJECT: "Professional nurses", AUX_VERB: "", VERB_IN_CORRECT_FORM: "nurse", ADVERB_OF_TIME: "daily" },
+      { SUBJECT: "The RN", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "nursing", ADVERB_OF_TIME: "carefully" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "nursed", ADVERB_OF_TIME: "many patients" },
+      { SUBJECT: "The nursing staff", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "nursing", ADVERB_OF_TIME: "since night shift" },
+      { SUBJECT: "The nurse", AUX_VERB: "", VERB_IN_CORRECT_FORM: "nursed", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "She", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "nursing", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "nursed", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "The staff", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "nursing", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "The nurse", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "nurse", ADVERB_OF_TIME: "to health" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "nursing", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "nursed", ADVERB_OF_TIME: "by discharge" },
+      { SUBJECT: "The nurses", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "nursing", ADVERB_OF_TIME: "for 12 hours" },
     ],
     discharge: [
-      "Hospitals discharge patients when they're ready to go home.",
-      "The doctor is discharging the patient this afternoon.",
-      "We have discharged three patients today already.",
-      "The hospital has been discharging since morning rounds.",
-      "They discharged the patient with home care instructions yesterday.",
-      "The nurse was discharging when the wheelchair arrived.",
-      "They had discharged before the insurance approval came through.",
-      "We had been discharging patients for hours before the shift ended.",
-      "The doctor will discharge you tomorrow morning.",
-      "They will be discharging while we prepare your medications.",
-      "We will have discharged by the time your ride arrives.",
-      "The hospital will have been discharging patients all day.",
+      { SUBJECT: "Hospitals", AUX_VERB: "", VERB_IN_CORRECT_FORM: "discharge", ADVERB_OF_TIME: "regularly" },
+      { SUBJECT: "The doctor", AUX_VERB: "is", VERB_IN_CORRECT_FORM: "discharging", ADVERB_OF_TIME: "this afternoon" },
+      { SUBJECT: "We", AUX_VERB: "have", VERB_IN_CORRECT_FORM: "discharged", ADVERB_OF_TIME: "today" },
+      { SUBJECT: "The hospital", AUX_VERB: "has been", VERB_IN_CORRECT_FORM: "discharging", ADVERB_OF_TIME: "since morning rounds" },
+      { SUBJECT: "They", AUX_VERB: "", VERB_IN_CORRECT_FORM: "discharged", ADVERB_OF_TIME: "yesterday" },
+      { SUBJECT: "The nurse", AUX_VERB: "was", VERB_IN_CORRECT_FORM: "discharging", ADVERB_OF_TIME: "then" },
+      { SUBJECT: "They", AUX_VERB: "had", VERB_IN_CORRECT_FORM: "discharged", ADVERB_OF_TIME: "before" },
+      { SUBJECT: "We", AUX_VERB: "had been", VERB_IN_CORRECT_FORM: "discharging", ADVERB_OF_TIME: "for hours" },
+      { SUBJECT: "The doctor", AUX_VERB: "will", VERB_IN_CORRECT_FORM: "discharge", ADVERB_OF_TIME: "tomorrow morning" },
+      { SUBJECT: "They", AUX_VERB: "will be", VERB_IN_CORRECT_FORM: "discharging", ADVERB_OF_TIME: "later" },
+      { SUBJECT: "We", AUX_VERB: "will have", VERB_IN_CORRECT_FORM: "discharged", ADVERB_OF_TIME: "by arrival" },
+      { SUBJECT: "The hospital", AUX_VERB: "will have been", VERB_IN_CORRECT_FORM: "discharging", ADVERB_OF_TIME: "all day" },
     ],
   },
-}
+};
 
 const getDifficultyColor = (difficulty: string) => {
   switch (difficulty) {
@@ -1359,11 +1394,147 @@ const getCategoryColor = (category: string) => {
   }
 }
 
+// Utility function to concatenate sentence object fields with auxiliary verbs in bold
+const concatenateSentence = (sentenceObj: any): React.ReactElement => {
+  if (typeof sentenceObj === 'string') {
+    return <span>{sentenceObj}</span>; // Handle legacy string format
+  }
+  
+  if (sentenceObj && typeof sentenceObj === 'object') {
+    const { SUBJECT, AUX_VERB, VERB_IN_CORRECT_FORM, ADVERB_OF_TIME } = sentenceObj;
+    
+    return (
+      <span>
+        {SUBJECT} {AUX_VERB && <span className="font-bold">{AUX_VERB}</span>} {VERB_IN_CORRECT_FORM} {ADVERB_OF_TIME}
+      </span>
+    );
+  }
+  
+  return <span>Example sentence will be here.</span>;
+}
+
+// Utility function to concatenate modal sentence object fields with modal in bold
+const concatenateModalSentence = (modalSentenceObj: any): React.ReactElement => {
+  if (modalSentenceObj && typeof modalSentenceObj === 'object') {
+    const { subject, modal, verb } = modalSentenceObj;
+    
+    return (
+      <span>
+        {subject} <span className="font-bold">{modal}</span> {verb}
+      </span>
+    );
+  }
+  
+  return <span>Example modal sentence will be here.</span>;
+}
+
+const modalSubjects = {
+  plane: {
+    fly: "The plane",
+    land: "The plane",
+    takeoff: "The plane",
+    board: "Passengers",
+    travel: "People",
+    pilot: "The pilot",
+    check: "The crew",
+    wait: "Passengers",
+    arrive: "The plane",
+    depart: "The plane"
+  },
+  house: {
+    live: "I",
+    build: "Construction workers",
+    clean: "She",
+    paint: "Professional painters",
+    repair: "The contractor",
+    decorate: "The interior designer",
+    move: "The family",
+    rent: "The tenant",
+    buy: "The buyer",
+    sell: "The seller"
+  },
+  car: {
+    drive: "The driver",
+    park: "The driver",
+    start: "The driver",
+    stop: "The driver",
+    wash: "The car owner",
+    repair: "The mechanic",
+    fuel: "The driver",
+    accelerate: "The driver",
+    brake: "The driver",
+    reverse: "The driver"
+  },
+  restaurant: {
+    eat: "The customer",
+    order: "The customer",
+    serve: "The waiter",
+    cook: "The chef",
+    pay: "The customer",
+    reserve: "The customer",
+    taste: "The customer",
+    recommend: "The waiter",
+    deliver: "The delivery person",
+    enjoy: "The customer"
+  },
+  school: {
+    study: "The student",
+    teach: "The teacher",
+    learn: "The student",
+    write: "The student",
+    read: "The student",
+    graduate: "The student",
+    attend: "The student",
+    examine: "The teacher",
+    practice: "The student",
+    discuss: "The students"
+  },
+  hospital: {
+    treat: "The doctor",
+    examine: "The doctor",
+    heal: "The doctor",
+    operate: "The surgeon",
+    diagnose: "The doctor",
+    recover: "The patient",
+    visit: "The visitor",
+    prescribe: "The doctor",
+    nurse: "The nurse",
+    discharge: "The hospital"
+  }
+};
+
+const modalTemplates = [
+  "is able to", "can", "could", "should", "would", "has to", "had to", "will have to",
+  "must", "might", "may", "should not", "must not", "would like to", "is going to", "needs to", "wants to"
+];
+
+const modalTemplatesPolish = [
+  "jest zdolny", "może/umie", "mógł by", "powinien", "by się", "musi", "musiał", "będzie musiał",
+  "musi", "może", "może", "nie powinien", "nie może", "chciałby", "zamierza", "potrzebuje", "chce"
+];
+
+const modalSentences: any = {};
+for (const topic in verbs) {
+  modalSentences[topic] = {};
+  for (const verbObj of verbs[topic as keyof typeof verbs]) {
+    const verb = verbObj.id;
+    const subject = modalSubjects[topic as keyof typeof modalSubjects]?.[verb as keyof (typeof modalSubjects)[keyof typeof modalSubjects]] || "Someone";
+    modalSentences[topic][verb] = modalTemplates.map((modal, index) => ({
+      subject,
+      modal,
+      verb,
+      polishTranslation: modalTemplatesPolish[index]
+    }));
+  }
+}
+
 export default function EnglishTensesApp() {
   const [currentStep, setCurrentStep] = useState<"topics" | "verbs" | "tenses">("topics")
   const [selectedTopic, setSelectedTopic] = useState<string>("")
   const [selectedVerb, setSelectedVerb] = useState<string>("")
   const [progress, setProgress] = useState(0)
+  const [showModals, setShowModals] = useState(false)
+  const [showTensePanel, setShowTensePanel] = useState(false)
 
   const handleTopicSelect = (topicId: string) => {
     setSelectedTopic(topicId)
@@ -1390,7 +1561,11 @@ export default function EnglishTensesApp() {
   }
 
   const getCurrentSentences = () => {
-    return sentences[selectedTopic as keyof typeof sentences]?.[selectedVerb as keyof (typeof sentences)["plane"]] || []
+    return sentences[selectedTopic as keyof typeof sentences]?.[selectedVerb as keyof (typeof sentences)[keyof typeof sentences]] || []
+  }
+
+  const getCurrentModalSentences = () => {
+    return modalSentences[selectedTopic as keyof typeof modalSentences]?.[selectedVerb as keyof (typeof modalSentences)[keyof typeof modalSentences]] || []
   }
 
   return (
@@ -1398,6 +1573,88 @@ export default function EnglishTensesApp() {
       {/* Theme Toggle - Fixed Position */}
       <div className="fixed top-4 right-4 z-50">
         <ThemeToggle />
+      </div>
+
+      {/* Tense Info Panel Toggle - Fixed Position */}
+      <div className="fixed top-4 right-20 z-50">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setShowTensePanel(!showTensePanel)}
+          className="gap-2"
+        >
+          <BookOpen className="h-4 w-4" />
+          Tenses Info
+        </Button>
+      </div>
+
+      {/* Sliding Tense Info Panel */}
+      <div className={`fixed top-0 right-0 h-full w-80 bg-card border-l shadow-xl transform transition-transform duration-300 ease-in-out z-40 ${
+        showTensePanel ? 'translate-x-0' : 'translate-x-full'
+      }`}>
+        <div className="p-6 h-full overflow-y-auto">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-semibold">English Tenses Guide</h3>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowTensePanel(false)}
+              className="h-8 w-8 p-0"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
+          </div>
+          
+          <div className="space-y-6">
+            {/* Past Tenses */}
+            <div>
+              <h4 className="text-md font-semibold text-blue-600 dark:text-blue-400 mb-3 flex items-center gap-2">
+                <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                Past Tenses
+              </h4>
+              <div className="space-y-3">
+                {tenses.filter(tense => tense.category === "past").map((tense, index) => (
+                  <div key={index} className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800">
+                    <h5 className="font-medium text-sm mb-1">{tense.name}</h5>
+                    <p className="text-xs text-muted-foreground">{tense.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Present Tenses */}
+            <div>
+              <h4 className="text-md font-semibold text-purple-600 dark:text-purple-400 mb-3 flex items-center gap-2">
+                <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+                Present Tenses
+              </h4>
+              <div className="space-y-3">
+                {tenses.filter(tense => tense.category === "present").map((tense, index) => (
+                  <div key={index} className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800">
+                    <h5 className="font-medium text-sm mb-1">{tense.name}</h5>
+                    <p className="text-xs text-muted-foreground">{tense.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Future Tenses */}
+            <div>
+              <h4 className="text-md font-semibold text-emerald-600 dark:text-emerald-400 mb-3 flex items-center gap-2">
+                <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
+                Future Tenses
+              </h4>
+              <div className="space-y-3">
+                {tenses.filter(tense => tense.category === "future").map((tense, index) => (
+                  <div key={index} className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg border border-emerald-200 dark:border-emerald-800">
+                    <h5 className="font-medium text-sm mb-1">{tense.name}</h5>
+                    <p className="text-xs text-muted-foreground">{tense.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="container mx-auto px-4 py-8 max-w-6xl">
@@ -1559,78 +1816,198 @@ export default function EnglishTensesApp() {
               <p className="text-muted-foreground text-lg mb-4">
                 with {topics.find((t) => t.id === selectedTopic)?.name} context
               </p>
-              <div className="flex items-center justify-center gap-4">
+              <div className="flex items-center justify-center gap-4 mb-6">
                 <Badge variant="outline" className="gap-2 px-4 py-2">
                   <Target className="h-4 w-4" />
                   All 12 English Tenses
+                </Badge>
+                <Badge variant="outline" className="gap-2 px-4 py-2">
+                  <Zap className="h-4 w-4" />
+                  17 Modal Verbs
                 </Badge>
                 <Badge variant="outline" className="gap-2 px-4 py-2">
                   <Palette className="h-4 w-4" />
                   Dark Mode Ready
                 </Badge>
               </div>
+              <div className="flex items-center justify-center gap-4">
+                <Button
+                  variant={showModals ? "outline" : "default"}
+                  onClick={() => setShowModals(false)}
+                  className="gap-2"
+                >
+                  <Target className="h-4 w-4" />
+                  Tenses
+                </Button>
+                <Button
+                  variant={showModals ? "default" : "outline"}
+                  onClick={() => setShowModals(true)}
+                  className="gap-2"
+                >
+                  <Zap className="h-4 w-4" />
+                  Modals
+                </Button>
+              </div>
             </div>
 
-            <ScrollArea className="h-[600px] pr-4">
-              <div className="space-y-4">
-                {tenses.map((tense, index) => (
-                  <Card
-                    key={tense.name}
-                    className="transition-all duration-300 hover:shadow-md border-l-2 border-l-primary/30 hover:border-l-primary/60"
-                  >
-                    <CardHeader className="pb-3">
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="text-lg flex items-center gap-3">
-                          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-sm font-bold text-primary border border-primary/20">
-                            {index + 1}
-                          </div>
-                          {tense.name}
-                        </CardTitle>
-                        <div className="flex gap-2">
-                          <Badge className={getCategoryColor(tense.category)}>{tense.category}</Badge>
-                          <Badge variant={tense.color as any}>
-                            {tense.name.includes("Perfect Continuous")
-                              ? "Perfect Continuous"
-                              : tense.name.includes("Continuous")
-                                ? "Continuous"
-                                : tense.name.includes("Perfect")
-                                  ? "Perfect"
-                                  : "Simple"}
-                          </Badge>
-                        </div>
+            {/* Remove <ScrollArea> and render its children directly */}
+            {!showModals ? (
+              <div className="space-y-6">
+                {/* Table Header */}
+                <div className="grid grid-cols-4 gap-4 mb-4 p-4 bg-muted/50 rounded-lg border">
+                  <div className="text-center font-semibold text-muted-foreground">Tense Type</div>
+                  <div className="text-center font-semibold text-blue-600 dark:text-blue-400">Past</div>
+                  <div className="text-center font-semibold text-purple-600 dark:text-purple-400">Present</div>
+                  <div className="text-center font-semibold text-emerald-600 dark:text-emerald-400">Future</div>
+                </div>
+
+                {/* Simple Tenses Row */}
+                <div className="border-l-4 border-l-blue-500 bg-card rounded-lg border shadow-sm">
+                  <div className="p-4">
+                    <div className="grid grid-cols-4 gap-4 items-center">
+                      <div className="flex flex-col items-center">
+                        <span className="text-lg font-semibold">Simple</span>
                       </div>
-                      <p className="text-sm text-muted-foreground ml-13">{tense.description}</p>
-                    </CardHeader>
-                    <Separator />
-                    <CardContent className="pt-4">
-                      <div className="flex items-start gap-4">
-                        <div className="flex-shrink-0">
-                          <div className="w-12 h-12 bg-muted rounded-xl flex items-center justify-center border">
-                            <Clock className="h-6 w-6 text-muted-foreground" />
-                          </div>
-                        </div>
-                        <div className="flex-1 space-y-3">
-                          <p className="text-lg font-medium leading-relaxed">
-                            {getCurrentSentences()[index] || `Example sentence for ${tense.name} will be here.`}
+                      <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 text-center flex items-center justify-center min-h-[80px]">
+                        <div>
+                          <p className="text-sm leading-relaxed">
+                            {concatenateSentence(getCurrentSentences()[4])}
                           </p>
-                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                            <div className="flex items-center gap-2">
-                              <ImageIcon className="h-4 w-4" />
-                              <span>Visual context</span>
-                            </div>
-                            <Separator orientation="vertical" className="h-4" />
-                            <div className="flex items-center gap-2">
-                              <Star className="h-4 w-4" />
-                              <span>Interactive example</span>
-                            </div>
-                          </div>
                         </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                      <div className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800 text-center flex items-center justify-center min-h-[80px]">
+                        <div>
+                          <p className="text-sm leading-relaxed">
+                            {concatenateSentence(getCurrentSentences()[0])}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg border border-emerald-200 dark:border-emerald-800 text-center flex items-center justify-center min-h-[80px]">
+                        <div>
+                          <p className="text-sm leading-relaxed">
+                            {concatenateSentence(getCurrentSentences()[8])}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Continuous Tenses Row */}
+                <div className="border-l-4 border-l-purple-500 bg-card rounded-lg border shadow-sm">
+                  <div className="p-4">
+                    <div className="grid grid-cols-4 gap-4 items-center">
+                      <div className="flex flex-col items-center">
+                        <span className="text-lg font-semibold">Continuous</span>
+                      </div>
+                      <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 text-center flex items-center justify-center min-h-[80px]">
+                        <div>
+                          <p className="text-sm leading-relaxed">
+                            {concatenateSentence(getCurrentSentences()[5])}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800 text-center flex items-center justify-center min-h-[80px]">
+                        <div>
+                          <p className="text-sm leading-relaxed">
+                            {concatenateSentence(getCurrentSentences()[1])}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg border border-emerald-200 dark:border-emerald-800 text-center flex items-center justify-center min-h-[80px]">
+                        <div>
+                          <p className="text-sm leading-relaxed">
+                            {concatenateSentence(getCurrentSentences()[9])}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Perfect Tenses Row */}
+                <div className="border-l-4 border-l-red-500 bg-card rounded-lg border shadow-sm">
+                  <div className="p-4">
+                    <div className="grid grid-cols-4 gap-4 items-center">
+                      <div className="flex flex-col items-center">
+                        <span className="text-lg font-semibold">Perfect</span>
+                      </div>
+                      <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 text-center flex items-center justify-center min-h-[80px]">
+                        <div>
+                          <p className="text-sm leading-relaxed">
+                            {concatenateSentence(getCurrentSentences()[6])}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800 text-center flex items-center justify-center min-h-[80px]">
+                        <div>
+                          <p className="text-sm leading-relaxed">
+                            {concatenateSentence(getCurrentSentences()[2])}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg border border-emerald-200 dark:border-emerald-800 text-center flex items-center justify-center min-h-[80px]">
+                        <div>
+                          <p className="text-sm leading-relaxed">
+                            {concatenateSentence(getCurrentSentences()[10])}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Perfect Continuous Tenses Row */}
+                <div className="border-l-4 border-l-orange-500 bg-card rounded-lg border shadow-sm">
+                  <div className="p-4">
+                    <div className="grid grid-cols-4 gap-4 items-center">
+                      <div className="flex flex-col items-center">
+                        <span className="text-lg font-semibold">Perfect Continuous</span>
+                      </div>
+                      <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 text-center flex items-center justify-center min-h-[80px]">
+                        <div>
+                          <p className="text-sm leading-relaxed">
+                            {concatenateSentence(getCurrentSentences()[7])}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="p-3 bg-purple-50 dark:bg-purple-950/30 rounded-lg border border-purple-200 dark:border-purple-800 text-center flex items-center justify-center min-h-[80px]">
+                        <div>
+                          <p className="text-sm leading-relaxed">
+                            {concatenateSentence(getCurrentSentences()[3])}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg border border-emerald-200 dark:border-emerald-800 text-center flex items-center justify-center min-h-[80px]">
+                        <div>
+                          <p className="text-sm leading-relaxed">
+                            {concatenateSentence(getCurrentSentences()[11])}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </ScrollArea>
+            ) : (
+              <div className="space-y-6">
+                {/* Modal Sentences Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {getCurrentModalSentences().map((modalSentence: any, index: number) => (
+                    <div key={index} className="p-4 bg-card rounded-lg border shadow-sm hover:shadow-md transition-shadow">
+                      <div className="text-center space-y-2">
+                        <p className="text-sm leading-relaxed">
+                          {concatenateModalSentence(modalSentence)}
+                        </p>
+                        <p className="text-xs text-muted-foreground italic">
+                          {modalSentence.polishTranslation}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className="flex justify-center gap-4 pt-4">
               <Button
